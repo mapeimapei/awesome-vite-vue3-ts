@@ -1,0 +1,31 @@
+{
+  "name": "awesome-vite-vue3-ts",
+  "version": "0.0.0",
+	"description": "awesome vite vue3 ts template",
+	"author": "daitu",
+	"license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@types/node": "^18.7.10",
+    "axios": "^0.27.2",
+    "element-plus": "^2.2.14",
+    "mitt": "^3.0.0",
+    "pinia": "^2.0.16",
+    "sass": "1.54.4",
+    "sass-loader": "^13.0.2",
+    "vue": "^3.2.37",
+    "vue-i18n": "^9.2.2",
+    "vue-router": "^4.0.0-0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.0.3",
+    "typescript": "^4.6.4",
+    "vite": "^3.0.7",
+    "vue-tsc": "^0.39.5"
+  }
+}
