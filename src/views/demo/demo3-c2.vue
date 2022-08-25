@@ -7,10 +7,15 @@
 
       <div>mitt === > {{aaRef}}</div>
 
+
+      <c3></c3>
+
    </div>
 </template>
 
 <script lang="ts" setup>
+import c3 from "./demo3-c3.vue"
+
 import { ref, toRefs,getCurrentInstance, reactive, onMounted,onUnmounted, nextTick, computed, watch } from 'vue';
 
 const aaRef = ref("")

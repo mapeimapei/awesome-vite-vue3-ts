@@ -9,6 +9,9 @@
         <button @click="change1">change1</button>
       </div>
 
+      <div>
+        provide ==> {{state.name}}
+      </div>
 
 
 	 <div class="box">
@@ -36,7 +39,7 @@ import c1 from "./demo3-c1.vue"
 import c2 from "./demo3-c2.vue"
 
 
-import { ref, toRefs, reactive, onMounted, getCurrentInstance, nextTick, computed, watch } from 'vue';
+import { ref, toRefs, reactive, onMounted, getCurrentInstance, nextTick, computed, watch, provide } from 'vue';
 
 const {proxy} = getCurrentInstance()
   
@@ -64,6 +67,8 @@ const change1 = ()=>{
 
 
 
+provide("name", state); //传值
+provide("changeName", changeName); //传方法
 
 </script>
 
