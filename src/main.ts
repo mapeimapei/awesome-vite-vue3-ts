@@ -19,6 +19,6 @@ const app = createApp(App)
 app.use(ElementPlus).use(router).use(pinia)
 app.mount('#app')
 
-app.config.globalProperties.mittBus = mitt()
+app.config.globalProperties.$mittBus = mitt()
 
 app.config.globalProperties.$uuid = uuid

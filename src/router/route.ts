@@ -18,7 +18,7 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 	 * 提示：写在这里的为全屏界面，不建议写在这里
 	 * 请写在 `dynamicRoutes` 路由数组中
 	 */
-	 {
+	{
 		path: '/request',
 		name: 'request',
 		component: () => import('@/views/demo/request.vue'),
@@ -28,8 +28,7 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 	},
 	 
 
-
-	 {
+	{
 		path: '/demo',
 		name: 'demo',
 		component: () => import('@/views/demo/demo.vue'),
@@ -38,7 +37,7 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 		},
 	},
 
-	 {
+	{
 		path: '/demo1',
 		name: 'demo1',
 		component: () => import('@/views/demo/demo1.vue'),
@@ -55,6 +54,16 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 			title: 'demo2',
 		},
 	},
+
+	{
+		path: '/demo3',
+		name: 'demo3',
+		component: () => import('@/views/demo/demo3.vue'),
+		meta: {
+			title: 'demo3',
+		},
+	},
+
 
 	{
 		path: '/store',
