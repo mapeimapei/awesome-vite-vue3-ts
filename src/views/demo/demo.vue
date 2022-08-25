@@ -35,15 +35,15 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, toRefs, reactive, onMounted, nextTick, computed, watch } from 'vue';
+import {Ref, ref, toRefs, reactive, onMounted, nextTick, computed, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useDemo } from '@/stores/demo';
 const storesDemo = useDemo();
 const { str,arr,isOk,obj } = storeToRefs(storesDemo);
 
-const nameRef = ref("nihao")
-const num = ref(10)
-const num3 = ref(10)
+const nameRef:Ref = ref("nihao")
+const num:Ref  = ref(10)
+const num3:Ref  = ref(10)
 const state = reactive({
   name:"daitu",
   sex:"men"

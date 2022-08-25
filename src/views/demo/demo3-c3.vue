@@ -16,8 +16,8 @@ import { inject } from 'vue';
 
 
  // 后代组件通过 inject 可以直接拿到父组件提供的信息
-const info = inject('name')
-const changeName = inject('changeName')
+const info:any = inject('name')
+const changeName:any = inject('changeName')
 
 
 

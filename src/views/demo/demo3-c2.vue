@@ -8,13 +8,13 @@
       <div>mitt === > {{aaRef}}</div>
 
 
-      <c3></c3>
+      <C3></C3>
 
    </div>
 </template>
 
 <script lang="ts" setup>
-import c3 from "./demo3-c3.vue"
+import C3 from "./demo3-c3.vue"
 
 import { ref, toRefs,getCurrentInstance, reactive, onMounted,onUnmounted, nextTick, computed, watch } from 'vue';
 
@@ -31,10 +31,10 @@ const props = defineProps({
 
 })
 
-const  {proxy} = getCurrentInstance()
+const  {proxy} = getCurrentInstance() as any
 
 
-const someMethod =(val)=>{
+const someMethod =(val:string)=>{
   aaRef.value = val
 }
 

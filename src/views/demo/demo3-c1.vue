@@ -74,7 +74,7 @@ const props = defineProps({
 
   up2:{
     type:String,
-    default:0
+    default:""
   },
 
   
@@ -87,7 +87,7 @@ const emitFn1 = ()=>{
 }
 
 const upFn1 = ()=>{
-  emit("update:up1",555555555)
+  emit("update:up1",555555555) 
 }
 
 const upFn2 = ()=>{
@@ -97,9 +97,9 @@ const upFn2 = ()=>{
 
 
 
-const changeNum3 = (val)=>{
+const changeNum3 = (val:number)=>{
 
-  num3.value = val
+  num3.value = val 
 
 
 }

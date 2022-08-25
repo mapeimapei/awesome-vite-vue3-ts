@@ -32,8 +32,8 @@ export const useDemo = defineStore('demo', {
 			this.obj =  obj
 		},
 
-		async setDemo() {
-			const infos: any = await this.getApiDemoInfo();
+		async setDemo(infos:any) {
+			//const infos: any = await this.getApiDemoInfo();
 			let {str,num,arr,obj,isOk} = infos
 			this.str = str
 			this.num = num
@@ -43,7 +43,7 @@ export const useDemo = defineStore('demo', {
 		},
 
 		// 模拟接口数据
-		async getApiDemoInfo() {
+		async getApiDemoInfo():Promise<any> {
 			return new Promise((resolve) => {
 				setTimeout(() => {
 					// 模拟数据

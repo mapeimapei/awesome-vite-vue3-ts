@@ -39,22 +39,24 @@ import c1 from "./demo3-c1.vue"
 import c2 from "./demo3-c2.vue"
 
 
-import { ref, toRefs, reactive, onMounted, getCurrentInstance, nextTick, computed, watch, provide } from 'vue';
+import {Ref, ref, toRefs, reactive, onMounted, getCurrentInstance, nextTick, computed, watch, provide } from 'vue';
 
-const {proxy} = getCurrentInstance()
+const {proxy} = getCurrentInstance() as any
   
 
-const nameRef = ref("nihao")
-const num = ref(10)
-const num3 = ref(10)
-const state = reactive({
+const nameRef:Ref = ref("nihao")
+const num:Ref = ref(10)
+const num3:Ref = ref(10)
+const state = reactive<any>({
   name:"daitu",
   sex:"men",
   up1:222,
-  upup:"eee"
+  upup:"eeee",
 });
 
-const changeName = (val)=>{
+
+
+const changeName = (val:Ref)=>{
   nameRef.value = val
 }
 
@@ -69,6 +71,8 @@ const change1 = ()=>{
 
 provide("name", state); //传值
 provide("changeName", changeName); //传方法
+
+
 
 </script>
 

@@ -21,20 +21,20 @@ import { useDemo } from '@/stores/demo';
 import { DemoStates } from '@/stores/interface/index';
 
 
-const { proxy } = <any>getCurrentInstance();
+const { proxy } =getCurrentInstance() as any;
 
 const storesDemo = useDemo();
 const { str,num,arr,isOk,obj } = storeToRefs(storesDemo);
 
 function setIsOk(){
   let aa: boolean = true
-  storesDemo.setIsOk(true)
+  storesDemo.setIsOk(aa)
 }
 
 
 function setStr(){
   let str: string = "收到广东省郭德纲"
-  storesDemo.setStr()
+  storesDemo.setStr(str)
 }
 
 
@@ -44,12 +44,12 @@ function setObj(){
 			sex:"2222222222",
 			age:202222
   }
-  storesDemo.setObj(setObj)
+  storesDemo.setObj(obj)
 }
 
 
 async function getApiDemoInfo(){
-  let obj:DemoStates = await storesDemo.getApiDemoInfo()
+  let obj: any = await storesDemo.getApiDemoInfo()
   storesDemo.setDemo(obj)
 }
 
