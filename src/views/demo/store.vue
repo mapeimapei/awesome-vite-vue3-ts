@@ -9,7 +9,6 @@
     <el-button type="primary" @click="setIsOk">setIsOk</el-button>
     <el-button type="primary" @click="setStr">setStr</el-button>
     <el-button type="primary" @click="setObj">setObj</el-button>
-
     <el-button type="primary" @click="getApiDemoInfo">getApiDemoInfo</el-button>
    
    </div>
