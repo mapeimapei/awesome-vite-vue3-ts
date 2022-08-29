@@ -1,10 +1,10 @@
 import { RouteRecordRaw } from 'vue-router';
-/**
- * 定义静态路由（默认路由）
- * 此路由不要动，前端添加路由的话，请在 `dynamicRoutes 数组` 中添加
- * @description 前端控制直接改 dynamicRoutes 中的路由，后端控制不需要修改，请求接口路由数据时，会覆盖 dynamicRoutes 第一个顶级 children 的内容（全屏，不包含 layout 中的路由出口）
- * @returns 返回路由菜单数据
- */
+
+import template from '@/views/template.vue'
+import sidebar_blog from '@/components/sidebar_blog.vue'
+import sidebar_petstore from '@/components/sidebar_petstore.vue'
+
+
 export const staticRoutes: Array<RouteRecordRaw> = [
 	{
 		path: '/login',
@@ -17,6 +17,33 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 
 
 
+    {
+        path: '/blog',
+        meta: {
+            title: '博客',
+            requireAuth: true,
+        },
+        name:"blog",
+        component: template,
+		redirect: { name: 'posts' },
+        children:[
+			{
+				path: 'posts',
+				meta: {
+					title: '文章列表',
+					requireAuth: true,
+				},
+				name:"posts",
+				components: {
+				  default: () => import('@/views/blog/posts.vue'),
+				  sidebar: sidebar_blog
+				}
+			},
+
+
+		]
+	},
+
 	 
 	{
 		path: '/demo',
@@ -25,7 +52,6 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 		component: () => import('@/views/demo/index.vue'),
 		meta: {
 			title: 'demo',
-			requireAuth: true,
 		},
 		children:[
 			{
@@ -34,7 +60,6 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 				component: () => import('@/views/demo/demo.vue'),
 				meta: {
 					title: 'demo',
-					requireAuth: true,
 				},
 			},
 		
@@ -89,7 +114,7 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 
     {
 		path: "/:catchAll(.*)", // 不识别的path自动匹配404
-        redirect: '/demo'
+        redirect: '/blog'
     }
 
 

@@ -1,17 +1,19 @@
 <template>
   <ul>
-    <li v-for="(item,index) in menu" :key="'menu'+index">
+    <li v-for="(item,index) in state.menu" :key="'menu'+index">
       <router-link :to="item.path">{{item.name}}</router-link>
     </li>
   </ul>
 </template>
-<script>
-export default {
-  name: "cSidebar",
-  props: [],
-  data() {
-    return {
-      menu: [
+
+<script lang="ts" setup>
+
+
+import { reactive } from 'vue';
+
+
+const state = reactive({
+    menu: [
         {
           name: "文章列表",
           path: "posts"
@@ -25,14 +27,16 @@ export default {
           path: "spider"
         }
       ]
-    };
-  },
-  computed: {},
-  watch: {},
-  methods: {},
-  mounted() {}
-};
+})
+
+
+
+
+  
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 </style>
+
+
+

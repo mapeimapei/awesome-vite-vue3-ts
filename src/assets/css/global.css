@@ -140,7 +140,7 @@ h2,  h3 { page-break-after: avoid; }
 .elli{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 .ver{display: -ms-flexbox;display: -webkit-flex;display: flex;-webkit-box-pack: center;-ms-flex-pack: center;-webkit-justify-content: center;justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit-align-items: center;-ms-flex-align: center; align-items: center;}
 a { touch-callout:none; text-decoration:none }
-a:link, a:visited { color:#5b5b5b; text-decoration:none; }
+a:link, a:visited { color:#409EFF; text-decoration:none; }
 a:hover, a:active { color:#5b5b5b; text-decoration: none; outline:0; }
 
 a:focus { background:none; }/*修正IE10下a的灰色底*/

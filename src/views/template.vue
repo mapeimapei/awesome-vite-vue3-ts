@@ -1,15 +1,13 @@
 <template>
 <div id="wrapper" class="fx fx-fdc">
-	<cHeader></cHeader>
+  <cHeader></cHeader>
 	<div id="container" class="fx fx-f1">
     <aside class="aside fx-srk">
       <router-view name="sidebar"></router-view>
     </aside>
 		<div class="container fx fx-f1 fx-srk">
 
-      <transition name="fade" mode="out-in">
-        <router-view></router-view>
-      </transition>
+      <router-view />
 
 		</div>
 	</div>
@@ -17,25 +15,21 @@
 
 </template>
 
-<script>
 
-import cHeader from '@/components/header'
-export default {
-  name: 'App',
-  components: {
-    cHeader,
-  },
-  data(){
-    return{
-      menutype:"blog"
-    }
-  },
-  computed:{},
-  watch:{},
-  methods:{},
 
-  mounted(){},
-  created(){},
-  beforDestroy(){}
+<script lang="ts" setup>
+import cHeader from '@/components/header.vue';
+// 变量
+const msg = 'Hello!'
+
+// 函数
+function log() {
+  console.log(msg)
 }
+
+
+
 </script>
+
+<style scoped lang="scss">
+</style>

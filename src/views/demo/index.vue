@@ -115,16 +115,4 @@ watch(
 
 ::v-deep .nav a{ margin-bottom:10px}
 
-.fx{display: -webkit-flex;  display: -moz-flex; display: -ms-flex; display: flex;}
-.fx-f0{-webkit-flex: 0; -moz-flex: 0; -ms-flex: 0; flex: 0; }
-.fx-f1{-webkit-flex: 1; -moz-flex: 1; -ms-flex: 1; flex: 1; }
-.fx-fdc{-webkit-flex-direction:column; -moz-flex-direction:column; -ms-flex-direction: column;flex-direction:column} /* 垂直排列 */
-.fx-fdr{-webkit-flex-direction:row; -moz-flex-direction:row; -ms-flex-direction: row; flex-direction:row;}  /* 横向排列 */
-.fx-aic{-webkit-align-items:center;-moz-align-items:center; -ms-align-items: center; align-items:center;}   /* 横向居中对齐 */
-.fx-jcc{-webkit-justify-content:center;-moz-justify-content:center; -ms-justify-content: center; justify-content:center;} /* 垂直居中对齐 */
-.fx-acs{align-content: space-around;-webkit-align-content:space-around; -ms-align-content: space-around;} /* 位于各行之前、之间、之后都留有空白的容器内 */
-.fx-wp{flex-wrap:wrap;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap} /* 超出父元素 换行 */
-.fx-jcs{justify-content:flex-start;-webkit-justify-content:flex-start;-ms-justify-content:flex-start;}  /* 头部对齐 */
-.fx-srk{flex-shrink: 0;}
-.fx-sk{flex-shrink: 0;}
 </style>

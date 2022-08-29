@@ -24,7 +24,7 @@ export const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   //console.log("router.to",to)
   if (to.matched.some(r => r.meta.requireAuth)) {
-    if (token.value) {
+    if (!!token.value) {
        next()
     }else {
       next({

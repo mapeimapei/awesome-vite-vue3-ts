@@ -17,10 +17,20 @@ export const useAuth = defineStore('auth', {
 	actions: {
 		setUser(obj: any) {
 			this.user =  obj
+			if(!!obj){
+				Session.set("user",obj)
+			}else{
+				Session.remove("user")
+			}
 		},
 
 		setToken(str: string) {
 			this.token =  str
+			if(!!str){
+				Session.set("token",str)
+			}else{
+				Session.remove("token")
+			}
 		},
 
 		// 模拟接口数据
