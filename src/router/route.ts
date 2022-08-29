@@ -6,18 +6,16 @@ import { RouteRecordRaw } from 'vue-router';
  * @returns 返回路由菜单数据
  */
 export const staticRoutes: Array<RouteRecordRaw> = [
-	// {
-	// 	path: '/login',
-	// 	name: 'login',
-	// 	component: () => import('@/views/login/index.vue'),
-	// 	meta: {
-	// 		title: '登录',
-	// 	},
-	// },
-	/**
-	 * 提示：写在这里的为全屏界面，不建议写在这里
-	 * 请写在 `dynamicRoutes` 路由数组中
-	 */
+	{
+		path: '/login',
+		name: 'login',
+		component: () => import('@/views/login.vue'),
+		meta: {
+			title: '登录',
+		},
+	},
+
+
 
 	 
 	{
@@ -27,6 +25,7 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 		component: () => import('@/views/demo/index.vue'),
 		meta: {
 			title: 'demo',
+			requireAuth: true,
 		},
 		children:[
 			{
@@ -35,6 +34,7 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 				component: () => import('@/views/demo/demo.vue'),
 				meta: {
 					title: 'demo',
+					requireAuth: true,
 				},
 			},
 		

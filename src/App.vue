@@ -1,7 +1,6 @@
 <template>
   	<el-config-provider>
-	 第一层
-		  <router-view />
+		<router-view />
     </el-config-provider>
 </template>
 

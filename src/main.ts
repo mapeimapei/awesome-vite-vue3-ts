@@ -1,9 +1,9 @@
 export {}
 import { createApp } from 'vue'
-import './style.css'
+
 
 import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
+
 
 import pinia from './stores/index'
 import mitt from 'mitt'
@@ -13,6 +13,10 @@ import router from './router'
 
 
 import {uuid} from './utils/common.js'
+
+import '@/assets/css/global.css'
+import 'element-plus/dist/index.css'
+import '@/assets/css/main.css'
 
 
 const app = createApp(App)

@@ -13,5 +13,3 @@ export function loginApi(data:any) {
   })
 }
 
-
-

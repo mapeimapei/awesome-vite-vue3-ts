@@ -1,0 +1,108 @@
+<template>
+	<div class="loginBox">
+		<div class="pt60">
+			<div class="tx">欢迎登录</div>
+
+      {{user}}
+      ===
+      {{token}}
+
+
+
+			<el-form :model="loginData" status-icon :rules="rules" ref="loginFormRef" label-width="70px" label-position="top" class="loginData">
+			  <el-form-item label="账号" prop="account">
+				<el-input type="text" v-model="loginData.account"></el-input>
+			  </el-form-item>
+			  <el-form-item label="输入密码" prop="passwd">
+				<el-input type="password" @keyup.enter.native="submitForm(loginFormRef)" v-model="loginData.passwd"></el-input>
+			  </el-form-item>
+			  <el-form-item>
+				<el-button @click="resetForm(loginFormRef)">重 置</el-button>
+				<el-button type="primary" @click="submitForm(loginFormRef)">登 录</el-button>
+			  </el-form-item>
+			</el-form>
+		</div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { reactive, ref,getCurrentInstance} from 'vue'
+import type { FormInstance, FormRules } from 'element-plus'
+
+import { useRoute, useRouter } from 'vue-router';
+
+import { storeToRefs } from 'pinia';
+import { useAuth } from '@/stores/auth';
+
+
+
+const loginFormRef = ref<FormInstance>()
+const loginData = reactive({
+  account: '9725029@qq.com',
+  passwd: 'mapei123',
+})
+
+const rules = reactive<FormRules>({
+  account: [
+    { required: true, message: '请输入正确的账号或名称', trigger: 'blur' }
+  ],
+  passwd: [
+    {required: true, message: '密码不能为空', trigger: 'blur' },
+  ]
+})
+
+const submitForm = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  await formEl.validate((valid, fields) => {
+    if (valid) {
+      console.log('submit!')
+      loginFn()
+    } else {
+      console.log('error submit!', fields)
+    }
+  })
+}
+
+const resetForm = (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  formEl.resetFields()
+}
+
+
+
+
+const storesAuth = useAuth();
+const { user,token } = storeToRefs(storesAuth);
+
+const route = useRoute();
+const router = useRouter();
+const { proxy } =getCurrentInstance() as any;
+async function loginFn(){
+  storesAuth.actionLogin(loginData).then(res =>{
+    proxy.$message.success("登录成功")
+    console.log(res)
+    let redirect = route.query?.redirect || '/blog/post';
+    router.push({
+      path: redirect as any
+    })
+
+			// 登录成功，跳到转首页
+			// 如果是复制粘贴的路径，非首页/登录页，那么登录成功后重定向到对应的路径中
+			// if (route.query?.redirect) {
+			// 	router.push({
+			// 		path: <string>route.query?.redirect,
+			// 		query: Object.keys(<string>route.query?.params).length > 0 ? JSON.parse(<string>route.query?.params) : '',
+			// 	});
+			// } else {
+			// 	router.push('/');
+			// }
+
+  }).catch(err=>{
+    proxy.$message.error("登录失败："+JSON.stringify(err) )
+  })
+}
+
+</script>
+
+<style scoped lang="scss">
+</style>

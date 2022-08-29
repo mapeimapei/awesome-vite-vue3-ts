@@ -1,6 +1,12 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import { staticRoutes } from './route';
-//import pinia from '@/stores/index';
+import pinia from '@/stores/index';
+import { storeToRefs } from 'pinia';
+import { useAuth} from '@/stores/auth';
+
+const storesAuth = useAuth(pinia);
+const { token } = storeToRefs(storesAuth);
+console.log("token",token.value)
 
 
 /**
@@ -16,7 +22,19 @@ export const router = createRouter({
 
 // 路由加载前
 router.beforeEach(async (to, from, next) => {
-	next();
+  //console.log("router.to",to)
+  if (to.matched.some(r => r.meta.requireAuth)) {
+    if (token.value) {
+       next()
+    }else {
+      next({
+        path: '/login',
+        query: {redirect: to.fullPath}
+      })
+    }
+  }else {
+    next()
+  }
 })
 // 路由加载后
 router.afterEach((to, from, next) => {
