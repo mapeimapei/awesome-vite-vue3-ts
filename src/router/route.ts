@@ -52,6 +52,19 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 				}
 			},
 
+			{
+				path: 'spider',
+				meta: {
+					title: '网络爬虫',
+					requireAuth: true,
+				},
+				name:"spider",
+				components: {
+				  default: () => import('@/views/blog/spider.vue'),
+				  sidebar: sidebar_blog
+				}
+			  },
+
 
 		]
 	},
