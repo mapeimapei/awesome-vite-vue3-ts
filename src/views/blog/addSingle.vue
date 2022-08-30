@@ -1,5 +1,5 @@
 <template>
-	<el-form :model="addArticle" :rules="rules" ref="addArticle" label-width="100px" class="addArticleBox fx-f1"
+	<el-form :model="addArticle" :rules="rules" ref="addArticleRef" label-width="100px" class="addArticleBox fx-f1"
 		label-position="top">
 		<el-form-item label="文章名称" prop="name">
 			<el-input v-model="addArticle.name"></el-input>
@@ -16,134 +16,151 @@
 		</el-form-item>
 	</el-form>
 </template>
-<script>
-import { mapState } from 'vuex'
-export default {
-	name: "addSingle",
-	data() {
-		return {
-			postId: this.$route.query.id || "",
-			addArticle: {
-				"user_name": "",
-				"user_id": "",
-				"name": "",
-				"post_id": "",
-				"summary": "",
-				"content": "",
-			},
-			rules: {
-				name: [
-					{ required: true, message: '请输入活动名称，此不能为空', trigger: 'blur' },
-				],
-				content: [
-					{ required: true, message: '正文内容不能为空', trigger: 'blur' },
-				],
+<script lang="ts" setup>
+import { getSingleById, addSingle } from "@/api/cms"
+import { reactive, ref, getCurrentInstance, computed, onMounted } from 'vue';
+import type { FormInstance, FormRules } from 'element-plus'
 
-			}
-		}
-	},
+//import { storeToRefs} from "pinia"
+import { useAuth } from '@/stores/auth'
+const { proxy } = getCurrentInstance() as any
 
-	computed: {
-		...mapState(
-			['user']
-		)
-	},
+const storesAuth = useAuth()
+const { user } = proxy.storeToRefs(storesAuth)
 
-	methods: {
-
-		//获取内容
-		getSingle() {
-			if (!this.postId) return   // this.postId值为空，就跳出getSingle()，直接执行新增addSingle()。不为空，就是编辑，会执行下面的代码
-
-			let apiUrl = "cms/post/getSingleById/" + this.postId
-			let loadingMask = this.$loading({
-				lock: true,
-				background: 'rgba(0, 0, 0, 0.5)'
-			});
-
-			this.$axios.get(apiUrl).then((data) => {
-				loadingMask.close();
-				if (!!data && data.resultCode === "20000") {
-					this.addArticle.name = data.result.name
-					this.addArticle.summary = data.result.summary
-					this.addArticle.content = data.result.content
-				} else {
-					this.$notify({
-						message: '获取文章列表失败。',
-						type: 'warning'
-					});
-				}
-			}).catch((err) => {
-				loadingMask.close();
-				this.$notify({
-					message: '获取文章列表接口报错。',
-					type: 'warning'
-				});
-			});
-
-		},
-
-
-		//新增
-		addSingle() {
-			this.addArticle.user_name = this.user.name
-			this.addArticle.user_id = this.user.id
-			this.addArticle.post_id = this.postId
-			let obj = { ...this.addArticle }
-			let apiUrl = "cms/post/addSingle"
-			// var formData = new FormData();
-			//formData.append('requestJson', JSON.stringify(obj));
-			let loadingMask = this.$loading({
-				lock: true,
-				background: 'rgba(0, 0, 0, 0.5)'
-			});
-			this.$axios.post(apiUrl, JSON.stringify(obj)).then((data) => {
-				loadingMask.close();
-				if (!!data && data.resultCode === "20000") {
-					this.$notify({
-						message: '成功。',
-						type: 'success'
-					})
-					this.$router.push('/index')
-				} else {
-					this.$notify({
-						message: '失败。',
-						type: 'warning'
-					});
-				}
-			}).catch((err) => {
-				loadingMask.close();
-				this.$notify({
-					message: '接口异常',
-					type: 'warning'
-				});
-			});
-		},
-
-		submitForm() {
-			this.$refs["addArticle"].validate((valid) => {
-				if (valid) {
-					this.addSingle()
-				} else {
-					console.log('error submit!!');
-					return false;
-				}
-			});
-		},
-
-		resetForm() {
-			this.$refs['addArticle'].resetFields();
-		}
-	},
-
-	mounted() {
-
-
-	},
-
-	created() {
-		this.getSingle()  //获取内容
-	}
-
+interface Article {
+	user_name: string,
+	user_id: string,
+	name: string,
+	post_id: string,
+	summary: string,
+	content: string,
 }
+
+// 这个也可以
+// const addArticle = reactive<Article>(
+// 	{
+// 		user_name:"",
+// 		user_id:"",
+// 		name:"",
+// 		post_id:"",
+// 		summary:"",
+// 		content:"",
+// 	}
+// )
+
+
+const addArticle = ref<Article>(
+	{
+		user_name: "",
+		user_id: "",
+		name: "",
+		post_id: "",
+		summary: "",
+		content: "",
+	}
+)
+
+const rules = reactive<FormRules>({
+	name: [
+		{ required: true, message: '请输入活动名称，此不能为空', trigger: 'blur' },
+	],
+	content: [
+		{ required: true, message: '正文内容不能为空', trigger: 'blur' },
+	],
+
+})
+
+
+const resetForm = () => {
+	proxy.$refs['addArticleRef'].resetFields();
+}
+
+
+const submitForm = () => {
+	proxy.$refs["addArticleRef"].validate((valid: FormInstance | undefined) => {
+		if (valid) {
+			addSingleFn()
+			console.log('sssss')
+		} else {
+			console.log('error submit!!');
+			return false;
+		}
+	});
+}
+
+const postId = computed(() => {
+	return proxy.$route.query.id || ""
+})
+
+
+
+//新增
+const addSingleFn = () => {
+	addArticle.value.user_name = user.value.name
+	addArticle.value.user_id = user.value.id
+	addArticle.value.post_id = postId.value
+
+	let loadingMask = proxy.$loading({
+		lock: true,
+		background: 'rgba(0, 0, 0, 0.5)'
+	});
+	addSingle(addArticle.value).then((data: any) => {
+		loadingMask.close();
+		if (!!data && data.resultCode === "20000") {
+			proxy.$notify({
+				message: '成功。',
+				type: 'success'
+			})
+			proxy.$router.push('/index')
+		} else {
+			proxy.$notify({
+				message: '失败。',
+				type: 'warning'
+			});
+		}
+	}).catch((err) => {
+		loadingMask.close();
+		proxy.$notify({
+			message: '接口异常',
+			type: 'warning'
+		});
+	}).finally(() => {
+		loadingMask.close();
+	});
+}
+
+
+
+const getSingle = () => {
+	if (!postId.value) return   // this.postId值为空，就跳出getSingle()，直接执行新增addSingle()。不为空，就是编辑，会执行下面的代码
+	let loadingMask = proxy.$loading({
+		lock: true,
+		background: 'rgba(0, 0, 0, 0.5)'
+	});
+	getSingleById(postId.value).then((data: any) => {
+		if (!!data && data.resultCode === "20000") {
+			addArticle.value.name = data.result.name
+			addArticle.value.summary = data.result.summary
+			addArticle.value.content = data.result.content
+		} else {
+			proxy.$notify({
+				message: '获取文章列表失败。',
+				type: 'warning'
+			});
+		}
+	}).catch((err) => {
+		proxy.$notify({
+			message: '获取文章列表接口报错。',
+			type: 'warning'
+		});
+	}).finally(() => {
+		loadingMask.close();
+	});
+}
+
+onMounted(() => {
+	getSingle()
+
+})
 </script>

@@ -39,6 +39,18 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 				  sidebar: sidebar_blog
 				}
 			},
+			{
+				path: 'addSingle',
+				meta: {
+					title: '添加文章',
+					requireAuth: true,
+				},
+				name:"addSingle",
+				components: {
+				  default: () => import('@/views/blog/addSingle.vue'),
+				  sidebar: sidebar_blog
+				}
+			},
 
 
 		]

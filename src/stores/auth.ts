@@ -11,8 +11,8 @@ import { ElLoading,ElMessage  } from 'element-plus'
  */
 export const useAuth = defineStore('auth', {
 	state: (): authStates => ({
-		user: Session.get("user"),
-		token: Session.get("token")
+		user: <any>Session.get("user"),
+		token: <string>Session.get("token")
 	}),
 	actions: {
 		setUser(obj: any) {

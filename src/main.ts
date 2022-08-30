@@ -10,8 +10,10 @@ import '@/assets/css/global.css'
 import 'element-plus/dist/index.css'
 import '@/assets/css/main.css'
 
+import {storeToRefs} from 'pinia'
+
 const app = createApp(App)
 app.use(ElementPlus).use(router).use(pinia).mount('#app')
-
 app.config.globalProperties.$mittBus = mitt()
 app.config.globalProperties.$uuid = uuid
+app.config.globalProperties.storeToRefs = storeToRefs
