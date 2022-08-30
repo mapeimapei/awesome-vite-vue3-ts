@@ -6,29 +6,15 @@
       <router-view name="sidebar"></router-view>
     </aside>
 		<div class="container fx fx-f1 fx-srk">
-
       <router-view />
-
 		</div>
 	</div>
 </div><!--app end-->
 
 </template>
 
-
-
 <script lang="ts" setup>
 import cHeader from '@/components/header.vue';
-// 变量
-const msg = 'Hello!'
-
-// 函数
-function log() {
-  console.log(msg)
-}
-
-
-
 </script>
 
 <style scoped lang="scss">

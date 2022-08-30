@@ -12,8 +12,6 @@
 				</li>
 			</ul>
 		</nav>
-
-
 		<div class="personalCenter" v-if="user">
 			<a href="javascript:">{{ user.name }}</a>
 			<a class="t12" href="javascript:" @click="logout">登出</a>
@@ -27,9 +25,10 @@ import { storeToRefs } from 'pinia';
 import { useAuth } from '@/stores/auth';
 
 const storesAuth = useAuth();
-const { user, token } = storeToRefs(storesAuth);
+const { user } = storeToRefs(storesAuth);
 
 const { proxy } = getCurrentInstance() as any;
+
 //登出
 const logout = () => {
 	proxy.$confirm('确定登出, 是否继续?', '提示', {

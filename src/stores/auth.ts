@@ -33,7 +33,7 @@ export const useAuth = defineStore('auth', {
 			}
 		},
 
-		// 模拟接口数据
+		// 登录接口
 		actionLogin(loginData:any) {
 			const loading = ElLoading.service({
 				lock: true,

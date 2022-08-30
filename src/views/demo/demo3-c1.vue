@@ -87,21 +87,16 @@ const emitFn1 = ()=>{
 }
 
 const upFn1 = ()=>{
-  emit("update:up1",555555555) 
+  emit("update:up1" as any,555555555) 
 }
 
 const upFn2 = ()=>{
-  emit("update:up2","这个方法就是之前的sync")
+  emit("update:up2" as any,"这个方法就是之前的sync")
 }
 
 
-
-
 const changeNum3 = (val:number)=>{
-
   num3.value = val 
-
-
 }
 
 //attrs 主要用于子组件获取父组件中没有通过 props 接收的属性。
@@ -109,7 +104,7 @@ const attrs = useAttrs();
 console.log("attrs",JSON.stringify(attrs)); 
 console.log("attrs",attrs.attr2); 
 
-const  {proxy} = getCurrentInstance()
+const  {proxy} = getCurrentInstance() as any
 
 const mittBusFn = ()=>{
 

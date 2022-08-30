@@ -2,13 +2,6 @@
 	<div class="loginBox">
 		<div class="pt60">
 			<div class="tx">欢迎登录</div>
-
-      {{user}}
-      ===
-      {{token}}
-
-
-
 			<el-form :model="loginData" status-icon :rules="rules" ref="loginFormRef" label-width="70px" label-position="top" class="loginData">
 			  <el-form-item label="账号" prop="account">
 				<el-input type="text" v-model="loginData.account"></el-input>
@@ -69,11 +62,8 @@ const resetForm = (formEl: FormInstance | undefined) => {
 }
 
 
-
-
 const storesAuth = useAuth();
-const { user,token } = storeToRefs(storesAuth);
-
+//const { user,token } = storeToRefs(storesAuth);
 const route = useRoute();
 const router = useRouter();
 const { proxy } =getCurrentInstance() as any;
