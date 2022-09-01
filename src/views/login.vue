@@ -32,7 +32,7 @@ import { useAuth } from '@/stores/auth';
 const loginFormRef = ref<FormInstance>()
 const loginData = reactive({
   account: '9725029@qq.com',
-  passwd: 'mapei123',
+  passwd: '',
 })
 
 const rules = reactive<FormRules>({
