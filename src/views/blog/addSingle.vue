@@ -100,7 +100,6 @@ const addSingleFn = () => {
 	addArticle.value.user_name = user.value.name
 	addArticle.value.user_id = user.value.id
 	addArticle.value.post_id = postId.value
-
 	let loadingMask = proxy.$loading({
 		lock: true,
 		background: 'rgba(0, 0, 0, 0.5)'

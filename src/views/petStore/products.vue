@@ -7,8 +7,8 @@
 		<el-table-column
       label="图片"
       width="72">
-      <template slot-scope="scope">
-        <div class="productIcon"><img :src="$ut.srcUrl + scope.row.image" sizes="48" /></div>
+      <template #default="scope">
+        <div class="productIcon"><img :src="srcUrl + scope.row.image" sizes="48" /></div>
       </template>
     </el-table-column>
 
@@ -34,13 +34,13 @@
 
     <el-table-column
       label="数量">
-      <template slot-scope="scope">
+      <template #default="scope">
         <el-input-number :min="1" v-model="scope.row.quantity"  size="small" label="描述文字"></el-input-number>
       </template>
     </el-table-column>
 		<el-table-column
       label="操作">
-      <template slot-scope="scope">
+      <template #default="scope">
         <el-button type="text" @click="makeOrderFn(scope.row)">直接购买</el-button>
         <el-button type="text" @click="addShoppingCart(scope.row)">加入购物车</el-button>
       </template>
@@ -51,161 +51,147 @@
 
 
   <el-pagination
-  	:current-page.sync="currentPage"
+    class="right"
+  	v-model:current-page="currentPage"
   	:page-size="pageSize"
   	layout="total, prev, pager, next"
   	:total="productList.length">
   </el-pagination>
 
-
 	</div>
 </template>
-<script>
+<script lang="ts" setup>
+import { getProductsApi,addOrderApi,addCartApi } from "@/api/shop"
+import { getCurrentInstance, ref, onMounted, computed } from 'vue'
+import { useAuth } from "@/stores/auth"
+
+const { proxy } = getCurrentInstance() as any;
+const storesAuth = useAuth()
+const { user } = proxy.storeToRefs(storesAuth)
 
 
-import { mapState } from 'vuex'
-export default {
-  name:"products",
-  data () {
-    return {
-      productList:[],
-      currentPage:1,
-      pageSize:5,
-      // productList2:[],
-    }
-  },
-
-  computed:{
-    ...mapState(
-          ['user']
-     ),
-
-     //分页
-    productList2(){
-      let start = (this.currentPage-1)*this.pageSize
-      let end =this.currentPage*this.pageSize
-      return this.productList.slice(start,end)
-    },
+const productList = ref([] as any)
+const currentPage = ref(1)
+const pageSize = ref(5)
 
 
-  },
 
-  methods:{
+const dev = process.env.NODE_ENV != 'production' ? true : false
+const srcUrl = computed(()=>{
+  //return "http://localhost:9000/static/resources/images/"
+  return dev ? "http://localhost:9000/static/resources/images/" : "/static/resources/images/"
+})
 
-    makeOrderFn(row){
-      let obj = {
-        "userid":this.user.id,
+
+// 计算属性
+const productList2 = computed(() => {
+  let start = (currentPage.value - 1) * pageSize.value
+  let end = currentPage.value * pageSize.value
+  return productList.value.slice(start, end)
+});
+
+
+// 直接购买
+const makeOrderFn = (row:any) => {
+    let obj = {
+        "userid":user.value.id,
         "productList":[row]
       }
-
-      let apiUrl = "shop/order/addOrder"
-      let loadingMask = this.$loading({
+      let loadingMask = proxy.$loading({
         lock: true,
         background: 'rgba(0, 0, 0, 0.5)'
       });
-      this.$axios.post(apiUrl, JSON.stringify(obj)).then((data) => {
-        loadingMask.close();
+      addOrderApi(obj).then((data:any) => {
         if(!!data && data.resultCode ==="20000"){
-          this.$notify({
+          proxy.$notify({
             message: '订单生成成功。',
             type: 'success'
           })
-          this.$router.push({path: 'ordersDetails', query:{orderid: data.result.orderid}})
+          proxy.$router.push({path: 'ordersDetails', query:{orderid: data.result.orderid}})
         }else{
-          this.$notify({
+          proxy.$notify({
             message: '订单生成失败。',
             type: 'warning'
           });
         }
       }).catch((err) => {
-        loadingMask.close();
-        this.$notify({
+        proxy.$notify({
           message: '订单生成接口报错。',
           type: 'warning'
         });
+      }).finally(()=>{
+        loadingMask.close();
       });
-    },
 
-
-
-    //加入购物车
-    addShoppingCart(row){
-      let obj = {
+}
+// 加入购物车
+const addShoppingCart = (row:any) => {
+  let obj = {
         "productid":row.productid,
         "quantity":row.quantity,
-        "userid":this.user.id
+        "userid":user.value.id
       }
       console.log(obj)
-      let apiUrl = "shop/cart/addCart"
-      let loadingMask = this.$loading({
+      let loadingMask = proxy.$loading({
         lock: true,
         background: 'rgba(0, 0, 0, 0.5)'
       });
-      this.$axios.post(apiUrl, JSON.stringify(obj)).then((data) => {
-        loadingMask.close();
+      addCartApi(obj).then((data:any) => {
         if(!!data && data.resultCode ==="20000"){
-          this.$notify({
+          proxy.$notify({
             message: '添加成功。',
             type: 'success'
           })
         }else{
-          this.$notify({
+          proxy.$notify({
             message: '添加失败。',
             type: 'warning'
           });
         }
       }).catch((err) => {
-        loadingMask.close();
-        this.$notify({
+        proxy.$notify({
           message: '添加接口报错。',
           type: 'warning'
         });
-      });
-
-
-    },
-
-    //获取商品列表信息
-    getProducts(){
-      let apiUrl = "shop/products"
-      let loadingMask = this.$loading({
-        lock: true,
-        background: 'rgba(0, 0, 0, 0.5)'
-      });
-      this.$axios.get(apiUrl).then((data) => {
+      }).finally(()=>{
         loadingMask.close();
-        if(!!data && data.resultCode ==="20000"){
-            data.result.forEach((item,index)=>{
-              //item.image = item.image.replace(/\./, "_")
-              item.quantity = 1
-            })
-            this.productList = data.result
-        }else{
-          this.$notify({
-            message: '获取商品列表失败。',
-            type: 'warning'
-          });
-        }
-      }).catch((err) => {
-        loadingMask.close();
-        this.$notify({
-          message: '获取商品表接口报错。',
-          type: 'warning'
-        });
       });
-    },
-
-  },
-
-  mounted(){
-
-  },
-
-  created(){
-    this.getProducts()
-  },
-
 }
+
+//初始化
+const getProducts = () => {
+  let loadingMask = proxy.$loading({
+    lock: true,
+    background: 'rgba(0, 0, 0, 0.5)'
+  });
+  getProductsApi().then((data: any) => {
+    if (!!data && data.resultCode === "20000") {
+      data.result.forEach((item:any,index:number)=>{
+        //item.image = item.image.replace(/\./, "_")
+        item.quantity = 1
+      })
+      productList.value = data.result
+    } else {
+      proxy.$notify({
+        message: '获取商品列表失败',
+        type: 'warning'
+      });
+    }
+  }).catch((err) => {
+    proxy.$notify({
+      message: '获取商品表接口报错',
+      type: 'warning'
+    });
+  }).finally(() => {
+    loadingMask.close();
+  });
+}
+
+onMounted(() => {
+  getProducts()
+})
+
+
 </script>
 
 <style scoped>
