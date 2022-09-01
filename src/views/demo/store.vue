@@ -1,5 +1,5 @@
 <template>
-	 <div>
+	 <div class="p20">
     <div>str ==> {{str}}</div>
     <div>num ==> {{num}}</div>
     <div>arr ==> {{arr}}</div>

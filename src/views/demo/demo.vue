@@ -1,52 +1,52 @@
 <template>
-	 <div>
-   <div>
+  <div class="p20">
+    <div>
       <el-button @click="changeNameRef('ok')">changeNameRef</el-button>
-      <div>ref ==> {{nameRef}}</div>
-      <div>baidu ==> {{baidu}}</div>
-    </div> 
-    
-   <div>
-      <el-button @click="changeNumRef">changeNumRef</el-button>
-      <div>ref ==> {{num}}</div>
-      <div>num2 ==> {{num2}}</div>
-      <div>num3 ==> {{num3}}</div>
-    </div> 
-    
+      <div>ref ==> {{ nameRef }}</div>
+      <div>baidu ==> {{ baidu }}</div>
+    </div>
 
-   <div>
+    <div>
+      <el-button @click="changeNumRef">changeNumRef</el-button>
+      <div>ref ==> {{ num }}</div>
+      <div>num2 ==> {{ num2 }}</div>
+      <div>num3 ==> {{ num3 }}</div>
+    </div>
+
+
+    <div>
       reactive
       <el-button @click="changeName('ddddddddd')">changeName</el-button>
-      <div :style="{color:(state.name=='daitu'?'#34eeee':'#000')}">name ==> {{state.name}}</div>
-    </div> 
-    
+      <div :style="{ color: (state.name == 'daitu' ? '#34eeee' : '#000') }">name ==> {{ state.name }}</div>
+    </div>
 
-   <div>
-      <div style="background:#ccc">{{obj}}</div>
+
+    <div>
+      <div style="background:#ccc">{{ obj }}</div>
       <el-button @click="setObj">setObj</el-button>
-    </div> 
-    
+    </div>
 
-    
-     
-   
-   
-   </div>
+
+
+
+
+
+  </div>
 </template>
 
 <script lang="ts" setup>
-import {Ref, ref, toRefs, reactive, onMounted, nextTick, computed, watch } from 'vue';
+import { Ref, ref, toRefs, reactive, onMounted, nextTick, computed, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useDemo } from '@/stores/demo';
 const storesDemo = useDemo();
-const { str,arr,isOk,obj } = storeToRefs(storesDemo);
+const { str, arr, isOk, obj } = storeToRefs(storesDemo);
 
-const nameRef:Ref = ref("nihao")
-const num:Ref  = ref(10)
-const num3:Ref  = ref(10)
+const nameRef: Ref = ref("nihao")
+const num: Ref = ref(10)
+const num3: Ref = ref(10)
 const state = reactive({
-  name:"daitu",
-  sex:"men"
+  name: "daitu",
+  sex: "men"
 });
 
 
@@ -61,12 +61,12 @@ const num2 = computed(() => {
 });
 
 
-const changeNameRef = (val:string)=>{
-  nameRef.value = nameRef.value +" " + val
+const changeNameRef = (val: string) => {
+  nameRef.value = nameRef.value + " " + val
 }
 
-const changeNumRef =()=>{
-  num.value+=2
+const changeNumRef = () => {
+  num.value += 2
 }
 
 
@@ -79,13 +79,13 @@ const changeName = (str: string) => {
 
 // 注意： vue3.0监听器监听的数据对象，不能使用监听值得形式。
 watch(
-  ()=>state.name,
+  () => state.name,
   (val) => {
-    console.log("1111",val)
-    setTimeout(()=>{
+    console.log("1111", val)
+    setTimeout(() => {
       console.log("2222")
       state.name = "daitu"
-    },2000)
+    }, 2000)
   },
   {
     //immediate: true,
@@ -95,20 +95,20 @@ watch(
 
 //ref的类型 可以监听 num 或者 改为 ()=> num.value
 watch(
-  num,  
+  num,
   () => {
-    setTimeout(()=>{
+    setTimeout(() => {
       num3.value = 200000
-    },2000)
+    }, 2000)
   }
 )
 
 
-const setObj =()=>{
+const setObj = () => {
   let obj: any = {
-			name:"11111111111",
-			sex:"2222222222",
-			age:202222
+    name: "11111111111",
+    sex: "2222222222",
+    age: 202222
   }
   storesDemo.setObj(obj)
 }
@@ -116,12 +116,12 @@ const setObj =()=>{
 
 watch(
   obj,
-  (newVal,oldVal) => {
-    console.log("storesDemo 改变了",JSON.stringify(newVal))
+  (newVal, oldVal) => {
+    console.log("storesDemo 改变了", JSON.stringify(newVal))
   },
   {
     //immediate: true,
-    deep:true
+    deep: true
   }
 )
 

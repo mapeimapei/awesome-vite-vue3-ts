@@ -10,6 +10,9 @@
 				<li>
 					<router-link to="/petStore">宠物商店</router-link>
 				</li>
+				<li>
+					<router-link to="/demo">vue3基础DEMO</router-link>
+				</li>
 			</ul>
 		</nav>
 		<div class="personalCenter" v-if="user">
