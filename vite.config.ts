@@ -2,6 +2,10 @@ import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
 import { defineConfig, loadEnv, ConfigEnv } from 'vite';
 
+import { svgBuilder } from './src/utils/svgBuilder';
+
+
+
 const pathResolve = (dir: string): any => {
 	// 如果报错__dirname找不到，需要安装node,执行yarn add @types/node --save-dev
 	return resolve(__dirname, dir);
@@ -11,6 +15,10 @@ const alias: Record<string, string> = {
 	'@': pathResolve("src"),
 	"comps": pathResolve("src/components"),
 	'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
+	"api": resolve('src/api'),
+	"views": resolve('src/views'),
+	"utils": resolve('src/utils'),
+	"router": resolve('src/router'),
 };
 
 export default defineConfig((mode: ConfigEnv) => {
@@ -19,7 +27,10 @@ export default defineConfig((mode: ConfigEnv) => {
 	// process.cwd() => D:\github\awesome-vite-vue3-ts
 	return {
 		lintOnSave: false,
-		plugins: [vue()],
+		plugins: [
+			vue(),
+			[svgBuilder('./src/assets/icons/svg/')] // 这里已经将src/icons/svg/下的svg全部导入，无需再单独导入
+		],
 		root: process.cwd(),
 		resolve: { alias },
 		//项目部署的基础路径

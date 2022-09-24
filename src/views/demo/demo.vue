@@ -27,6 +27,12 @@
     </div>
 
 
+    <div>
+      <p>SVG 演示：</p>
+      <svg-icon iconClass="bug" />
+
+      <svg-icon iconClass="vue" />
+    </div>
 
 
 
@@ -38,6 +44,9 @@
 import { Ref, ref, toRefs, reactive, onMounted, nextTick, computed, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useDemo } from '@/stores/demo';
+
+import svgIcon from './svgIcon.vue';
+
 const storesDemo = useDemo();
 const { str, arr, isOk, obj } = storeToRefs(storesDemo);
 
@@ -130,4 +139,5 @@ watch(
 </script>
 
 <style scoped lang="scss">
+
 </style>

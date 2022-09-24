@@ -140,7 +140,7 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 		component: template,
 		meta: {
 			title: 'demo',
-			requireAuth: true,
+			//requireAuth: true,
 		},
 		children: [
 			{
