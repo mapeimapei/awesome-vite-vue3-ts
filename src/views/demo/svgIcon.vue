@@ -6,7 +6,7 @@
  
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
- 
+//import qs from 'querystring'
 interface Props {
 	iconClass: string
 	className: string
