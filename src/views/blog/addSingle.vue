@@ -4,7 +4,7 @@
 		<el-form-item label="文章名称" prop="name">
 			<el-input v-model="addArticle.name"></el-input>
 		</el-form-item>
-		<el-form-item label=" 文章摘要" prop="summary">
+		<el-form-item label="文章摘要" prop="summary">
 			<el-input v-model="addArticle.summary"></el-input>
 		</el-form-item>
 		<el-form-item label="正文内容" prop="content">

@@ -50,9 +50,14 @@
     </el-table>
 
     <!-- 分页 -->
-    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-      v-model:current-page="currentPage" :page-size="pageSize" layout="total, prev, pager, next"
-      :total="cartList.length">
+    <el-pagination 
+      @size-change="handleSizeChange" 
+      @current-change="handleCurrentChange" 
+      v-model:current-page="currentPage" 
+      :page-size="pageSize" 
+      layout="total, prev, pager, next"
+      :total="cartList.length"
+    >
     </el-pagination>
 
   </div>
@@ -81,8 +86,7 @@ const rowKeys = ref('')
 
 const dev = process.env.NODE_ENV != 'production' ? true : false
 const srcUrl = computed(() => {
-  //return "http://localhost:9000/static/resources/images/"
-  return dev ? "http://localhost:9000/static/resources/images/" : "/static/resources/images/"
+  return dev ? "/resStatic/static/resources/images/" : "/static/resources/images/"
 })
 
 

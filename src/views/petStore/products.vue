@@ -77,10 +77,10 @@ const pageSize = ref(5)
 
 
 const dev = process.env.NODE_ENV != 'production' ? true : false
-const srcUrl = computed(()=>{
-  //return "http://localhost:9000/static/resources/images/"
-  return dev ? "http://localhost:9000/static/resources/images/" : "/static/resources/images/"
+const srcUrl = computed(() => {
+  return dev ? "/resStatic/static/resources/images/" : "/static/resources/images/"
 })
+
 
 
 // 计算属性

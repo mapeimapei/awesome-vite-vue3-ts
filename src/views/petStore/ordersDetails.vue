@@ -119,9 +119,6 @@ const statusFliter = (val: any) => {
 }
 
 
-
-
-
 const deleteRow = (obj: any) => {
   let _obj = {
     "userid": user.value.id,
