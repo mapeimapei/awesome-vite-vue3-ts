@@ -65,6 +65,14 @@ export default defineConfig((mode: ConfigEnv) => {
 					changeOrigin: true,
 					//rewrite: (path) => path.replace(/^\/api/, '') // 路径重写，rewrite target目标地址 + '/api'，如果接口是这样的，那么不用重写
 				},
+				'/resStatic': {
+					target: 'http://127.0.0.1:9000/', // 代理的目标地址
+					// secure: true, // 是否https接口
+					// ws: true,// 是否代理websockets
+					changeOrigin: true,
+					// 路径重写
+					rewrite: (path) => path.replace(/^\/resStatic/, '')
+				}
 			},
 		},
 
