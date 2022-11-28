@@ -14,7 +14,10 @@
 			"@/*": ["./src/*"],
       "comps/*": ["./src/components/*"]
 		},
-    "types": ["vite/client"],
+    "types": [
+      "vite/client",
+      "pinia-plugin-persist"
+    ],
     "isolatedModules": true,
     "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],

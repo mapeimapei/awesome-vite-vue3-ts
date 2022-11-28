@@ -36,7 +36,7 @@ import { getPostsApi, deleteSingle } from "@/api/cms"
 
 import { getCurrentInstance, ref, onMounted, computed } from 'vue'
 import { storeToRefs } from "pinia";
-import { useAuth } from "@/stores/auth"
+import { useAuth} from '@/stores';
 
 const storesAuth = useAuth()
 const { user } = storeToRefs(storesAuth)

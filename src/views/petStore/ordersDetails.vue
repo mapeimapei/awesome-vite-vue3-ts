@@ -91,7 +91,7 @@ import { deleteProductInOrderDetailsApi, getOrdersDetailsByIdApi } from "@/api/s
 
 import { useRoute } from 'vue-router'
 import { getCurrentInstance, ref, reactive, onMounted, nextTick, computed } from 'vue'
-import { useAuth } from '@/stores/auth'
+import { useAuth } from '@/stores'
 const { proxy } = getCurrentInstance() as any
 const storesAuth = useAuth()
 const { user } = proxy.storeToRefs(storesAuth)

@@ -22,7 +22,7 @@ import { reactive, ref, getCurrentInstance, computed, onMounted } from 'vue';
 import type { FormInstance, FormRules } from 'element-plus'
 
 //import { storeToRefs} from "pinia"
-import { useAuth } from '@/stores/auth'
+import { useAuth} from '@/stores';
 const { proxy } = getCurrentInstance() as any
 
 const storesAuth = useAuth()

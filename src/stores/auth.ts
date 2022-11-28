@@ -10,31 +10,45 @@ import { ElLoading,ElMessage  } from 'element-plus'
  * 用户信息
  */
 export const useAuth = defineStore('auth', {
-	state: (): authStates => ({
-		user: <any>Session.get("user"),
-		token: <string>Session.get("token")
-	}),
+	state: (): authStates => {
+		return {
+			user: null,
+			token: ""
+		  }
+	},
+	
+	persist: {
+		enabled: true,
+		// strategies: [
+		// 	{ storage: sessionStorage, paths: ['token'] }, // str 和 num
+		// 	{ storage: localStorage, paths: ['user'] }, // obj 字段用 localstorage存储
+		// ],
+	},
+
 	actions: {
 		setUser(obj: any) {
 			this.user =  obj
-			if(!!obj){
-				Session.set("user",obj)
-			}else{
-				Session.remove("user")
-			}
+			// if(!!obj){
+			// 	Session.set("user",obj)
+			// }else{
+			// 	Session.remove("user")
+			// }
 		},
 
 		setToken(str: string) {
 			this.token =  str
-			if(!!str){
-				Session.set("token",str)
-			}else{
-				Session.remove("token")
-			}
+			// if(!!str){
+			// 	Session.set("token",str)
+			// }else{
+			// 	Session.remove("token")
+			// }
 		},
 
 		// 登录接口
 		actionLogin(loginData:any) {
+
+			console.log("loginData",loginData)
+
 			const loading = ElLoading.service({
 				lock: true,
 				text: 'Loading',
@@ -44,11 +58,14 @@ export const useAuth = defineStore('auth', {
 				loginApi(loginData).then((res:any)=>{
 					const { resultCode,result} = res
 					if(resultCode === "20000"){
-						//this.setUser(result)
-						this.user= result
-						this.token= result.token
-						Session.set("user",result)
-						Session.set("token",result.token)
+						this.setUser(result)
+						this.setToken(result.token)
+
+
+						// this.user= result
+						// this.token= result.token
+						// Session.set("user",result)
+						// Session.set("token",result.token)
 						// ElMessage({
 						// 	message: '登录成功',
 						// 	type: 'success',

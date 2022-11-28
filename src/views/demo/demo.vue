@@ -43,7 +43,7 @@
 <script lang="ts" setup>
 import { Ref, ref, toRefs, reactive, onMounted, nextTick, computed, watch } from 'vue';
 import { storeToRefs } from 'pinia';
-import { useDemo } from '@/stores/demo';
+import { useDemo } from '@/stores';
 
 import svgIcon from './svgIcon.vue';
 

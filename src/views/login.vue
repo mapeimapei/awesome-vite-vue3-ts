@@ -1,6 +1,12 @@
 <template>
 	<div class="loginBox">
 		<div class="pt60">
+
+
+{{user}}
+{{token}}
+
+
 			<div class="tx">欢迎登录</div>
 			<el-form :model="loginData" status-icon :rules="rules" ref="loginFormRef" label-width="70px" label-position="top" class="loginData">
 			  <el-form-item label="账号" prop="account">
@@ -25,14 +31,14 @@ import type { FormInstance, FormRules } from 'element-plus'
 import { useRoute, useRouter } from 'vue-router';
 
 import { storeToRefs } from 'pinia';
-import { useAuth } from '@/stores/auth';
+import { useAuth} from '@/stores';
 
 
 
 const loginFormRef = ref<FormInstance>()
 const loginData = reactive({
   account: '9725029@qq.com',
-  passwd: '',
+  passwd: 'mapei123',
 })
 
 const rules = reactive<FormRules>({
@@ -63,14 +69,14 @@ const resetForm = (formEl: FormInstance | undefined) => {
 
 
 const storesAuth = useAuth();
-//const { user,token } = storeToRefs(storesAuth);
+const { user,token } = storeToRefs(storesAuth);
 const route = useRoute();
 const router = useRouter();
 const { proxy } =getCurrentInstance() as any;
 async function loginFn(){
-  storesAuth.actionLogin(loginData).then(res =>{
+  storesAuth.actionLogin(loginData).then((res:any )=>{
     proxy.$message.success("登录成功")
-    console.log(res)
+    // console.log(res)
     let redirect = route.query?.redirect || '/blog/post';
     router.push({
       path: redirect as any

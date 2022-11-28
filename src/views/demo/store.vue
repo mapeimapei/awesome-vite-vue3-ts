@@ -36,7 +36,7 @@
 <script lang="ts" setup>
 import { getCurrentInstance, onMounted,ref } from 'vue';
 import { storeToRefs } from 'pinia';
-import { useDemo } from '@/stores/demo';
+import { useDemo } from '@/stores';
 import { DemoStates } from '@/stores/interface/index';
 
 

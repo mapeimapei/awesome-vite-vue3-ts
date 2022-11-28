@@ -2,12 +2,14 @@ import axios from 'axios'
 import errorCode from '@/utils/errorCode'
 import { obj2Param } from "@/utils/bomTools.js";
 import { ElMessage, ElMessageBox } from 'element-plus';
-import { Session } from '@/utils/storage';
 import Base64 from '@/utils/Base64.js';
 
+import pinia from '@/stores';
+import { useAuth} from '@/stores';
 
 const getToken = ()=>{
-  let authorization = "basic " + Base64.encode("token:"+Session.get("token"))
+  const storesAuth = useAuth(pinia);
+  let authorization = "basic " + Base64.encode("token:"+storesAuth.token)
   return authorization
 }
 
@@ -59,13 +61,15 @@ service.interceptors.response.use(
       return res.data
     }
     if (code === 401) {
-      Session.clear(); // 清除浏览器全部临时缓存
+      //Session.clear(); // 清除浏览器全部临时缓存
       ElMessageBox.alert('你已被登出，请重新登录', '提示', {})
       .then(() => {})
       .catch(() => {});
       return Promise.reject('无效的会话，或者会话已过期，请重新登录。')
     } else if (code === 500) {
+
       ElMessage.error(msg)
+
       return Promise.reject(new Error(msg))
     } else if (code !== 200) {
       ElMessage.error(msg)

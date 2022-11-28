@@ -1,13 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import { staticRoutes } from './route';
-import pinia from '@/stores/index';
-import { storeToRefs } from 'pinia';
-import { useAuth} from '@/stores/auth';
-
-const storesAuth = useAuth(pinia);
-const { token } = storeToRefs(storesAuth);
-console.log("token",token.value)
-
+import pinia from '@/stores';
+import { useAuth} from '@/stores';
 
 /**
  * 创建一个可以被 Vue 应用程序使用的路由实例
@@ -23,8 +17,9 @@ export const router = createRouter({
 // 路由加载前
 router.beforeEach(async (to, from, next) => {
   //console.log("router.to",to)
+  const storesAuth = useAuth(pinia);
   if (to.matched.some(r => r.meta.requireAuth)) {
-    if (!!token.value) {
+    if (!!storesAuth.token) {
        next()
     }else {
       next({

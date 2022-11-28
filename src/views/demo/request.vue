@@ -21,7 +21,7 @@ import { loginApi } from "@/api/auth"
 import { getPostsApi } from "@/api/cms"
 
 import { storeToRefs } from 'pinia';
-import { useAuth } from '@/stores/auth';
+import { useAuth } from '@/stores';
 const storesAuth = useAuth();
 const { user, token } = storeToRefs(storesAuth);
 

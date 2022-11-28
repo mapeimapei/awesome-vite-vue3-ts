@@ -25,7 +25,7 @@
 <script lang="ts" setup>
 import { getCurrentInstance,nextTick } from 'vue'
 import { storeToRefs } from 'pinia';
-import { useAuth } from '@/stores/auth';
+import { useAuth} from '@/stores';
 
 const storesAuth = useAuth();
 const { user } = storeToRefs(storesAuth);
