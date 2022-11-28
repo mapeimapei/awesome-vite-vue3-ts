@@ -25,9 +25,8 @@ export const useDemo = defineStore('demo', {
 		},
 
 		routerDemo2(id:string){
-			router.push({path: 'addSingle', query:{id: id}})
+			router.push({name: 'addSingle', query:{id: id}})
 		},
-
 
 
 		async setIsOk(val: boolean) {
@@ -73,4 +72,14 @@ export const useDemo = defineStore('demo', {
 			});
 		},
 	},
+
+
+	getters: {
+		str2: (state) => state.str+"_11111111111111111",
+		getStr3: (state) => {
+			// return (userId) => state.users.find((user) => user.id === userId)
+			return (userId:string) =>state.str+userId
+		},
+	},
+	
 });
