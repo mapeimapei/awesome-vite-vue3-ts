@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import { staticRoutes } from './route';
+import staticRoutes from './route';
 import pinia from '@/stores';
 import { useAuth} from '@/stores';
 
