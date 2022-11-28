@@ -10,7 +10,8 @@
     <el-button type="primary" @click="setStr">setStr</el-button>
     <el-button type="primary" @click="setObj">setObj</el-button>
     <el-button type="primary" @click="getApiDemoInfo">getApiDemoInfo</el-button>
-   
+    <el-button type="primary" @click="storesDemo.routerDemo">storesDemo.routerDemo</el-button>
+    <el-button type="primary" @click="goPost('0016675543185504da76edfbb034e8cb57693c16b00dd74000')">storesDemo.routerDemo2</el-button>
    </div>
 </template>
 
@@ -25,6 +26,13 @@ const { proxy } =getCurrentInstance() as any;
 
 const storesDemo = useDemo();
 const { str,num,arr,isOk,obj } = storeToRefs(storesDemo);
+
+
+const goPost = (id:string)=>{
+  storesDemo.routerDemo2(id)
+
+}
+
 
 function setIsOk(){
   let aa: boolean = true

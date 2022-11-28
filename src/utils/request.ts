@@ -65,9 +65,7 @@ service.interceptors.response.use(
       .catch(() => {});
       return Promise.reject('无效的会话，或者会话已过期，请重新登录。')
     } else if (code === 500) {
-
       ElMessage.error(msg)
-
       return Promise.reject(new Error(msg))
     } else if (code !== 200) {
       ElMessage.error(msg)

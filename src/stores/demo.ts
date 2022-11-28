@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { DemoStates,Obj } from './interface';
 //import { Session } from '@/utils/storage';
-
+import router from '@/router'
 /**
  * 用户信息
  * @methods DemoStates 设置demo信息
@@ -19,6 +19,16 @@ export const useDemo = defineStore('demo', {
 		}
 	}),
 	actions: {
+
+		routerDemo(){
+			router.push("/blog/posts")
+		},
+
+		routerDemo2(id:string){
+			router.push({path: 'addSingle', query:{id: id}})
+		},
+
+
 
 		async setIsOk(val: boolean) {
 			this.isOk =  val
