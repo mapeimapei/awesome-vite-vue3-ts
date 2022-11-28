@@ -80,7 +80,6 @@ export const useDemo = defineStore('demo', {
 		},
 	},
 
-
 	getters: {
 		str2: (state) => state.str + "_11111111111111111",
 		getStr3: (state) => {
