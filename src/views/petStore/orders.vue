@@ -19,8 +19,8 @@
 
       <el-table-column label="操作">
         <template #default="scope">
-          <el-button type="text" @click="goOrdersDetails(scope.row.orderid)">查看</el-button>
-          <el-button type="text" @click="deleteOrder(scope.row.orderid)">删除</el-button>
+          <el-button link type="primary" @click="goOrdersDetails(scope.row.orderid)">查看</el-button>
+          <el-button link type="primary" @click="deleteOrder(scope.row.orderid)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

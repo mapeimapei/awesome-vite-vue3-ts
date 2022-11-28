@@ -41,8 +41,8 @@
 		<el-table-column
       label="操作">
       <template #default="scope">
-        <el-button type="text" @click="makeOrderFn(scope.row)">直接购买</el-button>
-        <el-button type="text" @click="addShoppingCart(scope.row)">加入购物车</el-button>
+        <el-button link type="primary" @click="makeOrderFn(scope.row)">直接购买</el-button>
+        <el-button link type="primary" @click="addShoppingCart(scope.row)">加入购物车</el-button>
       </template>
     </el-table-column>
 

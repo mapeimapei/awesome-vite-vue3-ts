@@ -1,12 +1,6 @@
 <template>
 	<div class="loginBox">
 		<div class="pt60">
-
-
-{{user}}
-{{token}}
-
-
 			<div class="tx">欢迎登录</div>
 			<el-form :model="loginData" status-icon :rules="rules" ref="loginFormRef" label-width="70px" label-position="top" class="loginData">
 			  <el-form-item label="账号" prop="account">

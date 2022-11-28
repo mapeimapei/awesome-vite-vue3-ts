@@ -43,7 +43,7 @@
 
       <el-table-column label="操作">
         <template #default="scope">
-          <el-button type="text" @click="deleteFn([scope.row.productid])">删除</el-button>
+          <el-button link type="primary" @click="deleteFn([scope.row.productid])">删除</el-button>
         </template>
       </el-table-column>
 
