@@ -3,6 +3,8 @@ import { RouteRecordRaw } from 'vue-router';
 import blog from './blog'
 import shop from './shop'
 import demo from './demo'
+import flask from './flask'
+
 
 const staticRoutes: Array<RouteRecordRaw> = [
 	{
@@ -19,7 +21,8 @@ const staticRoutes: Array<RouteRecordRaw> = [
 	},
 	blog,
 	shop,
-	demo
+	demo,
+	flask
 ]
 
 export default staticRoutes

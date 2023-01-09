@@ -13,6 +13,11 @@
 				<li>
 					<router-link to="/demo">vue3基础DEMO</router-link>
 				</li>
+
+				<li>
+					<router-link to="/flask">flask</router-link>
+				</li>
+
 			</ul>
 		</nav>
 		<div class="personalCenter" v-if="user">

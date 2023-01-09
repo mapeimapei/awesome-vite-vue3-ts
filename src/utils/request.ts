@@ -43,6 +43,11 @@ service.interceptors.request.use(config => {
     config.url = url;
   }
   return config
+
+
+
+
+
 }, error => {
   console.log(error)
   Promise.reject(error)
@@ -58,7 +63,7 @@ service.interceptors.response.use(
     const msg = errorCode[code] || res.data.msg || errorCode['default']
     // 二进制数据则直接返回
     if (res.request?.responseType === 'blob' || res.request?.responseType === 'arraybuffer') {
-      return res.data
+      return res
     }
     if (code === 401) {
       //Session.clear(); // 清除浏览器全部临时缓存

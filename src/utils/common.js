@@ -87,35 +87,46 @@ export async function blobValidate(data) {
 }
 
 
-//二进制流下载
-//type为下载文件的类型
-export function blobDownloadFn(res, type) {
-  var disp = res.request.getResponseHeader('Content-Disposition')
-  var fileName = ""
-  if (disp && disp.search('attachment') != -1) {
-    var index = disp.indexOf("")
-    var lastlndex = disp.lastlndexOf("")
-    fileName = disp.substring(index + 1, lastlndex)
+// 通用下载方法（post请求）
+// export function postDownload(res, fileName="") {
+//   try {
+//     fileName = fileName || decodeURIComponent(res.headers['content-disposition'].split('=')[1])
+//     const _res = res
+//     let blob = new Blob([_res], { type: 'application/octet-stream' })
+//     let downloadElement = document.createElement('a')
+//     let href = window.URL.createObjectURL(blob) //创建下载的链接
+//     downloadElement.href = href
+//     downloadElement.download = fileName //下载后文件名
+//     document.body.appendChild(downloadElement)
+//     downloadElement.click() //点击下载
+//     document.body.removeChild(downloadElement) //下载完成移除元素
+//     window.URL.revokeObjectURL(href) //释放掉blob对象
+//   } catch (e) {
+//     console.log(e)
+//     this.msgError('下载失败')
+//   }
+// }
+
+
+
+//二进制流下载 通用下载方法（post请求）
+export function postDownload(res, fileName="") {
+  try {
+    fileName = fileName || decodeURIComponent(res.headers['content-disposition'].split('=')[1])
+    //字符内容转变成blob地址
+    let blob = new Blob([res.data],{ type: 'application/octet-stream' })
+    let downloadElement = document.createElement('a')
+    let href = window.URL.createObjectURL(blob) //创建下载的链接
+    downloadElement.href = href
+    downloadElement.download = fileName //下载后文件名
+    downloadElement.style.display = 'none'
+    document.body.appendChild(downloadElement)
+    downloadElement.click() //点击下载
+    document.body.removeChild(downloadElement) //下载完成移除元素
+    window.URL.revokeObjectURL(href) //释放掉blob对象
+  } catch (e) {
+    console.log(e,"下载失败")
   }
-  var eleLink = document.createElement('a')
-  eleLink.download = fileName
-  eleLink.style.display = 'none'
-  //字符内容转变成blob地址
-  if (!!type) {
-    var blob = new Blob([res.data], { type: "application/" + type })
-  } else {
-    var blob = new Blob([res.data])
-  }
-  eleLink.href = URLcreateObjectURL(blob)
-  //触发点击
-  document.body.appendChild(eleLink)
-  if (!!window.ActiveXObject || "ActiveXObject" in window) {
-    window.navigator.msSaveOrOpenBlob(blob, eleLink.download)
-  } else {
-    eleLink.click()
-  }
-  //然后移除
-  document.body.removeChild(eleLink)
 }
 
 

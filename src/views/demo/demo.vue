@@ -93,7 +93,7 @@ watch(
     console.log("1111", val)
     setTimeout(() => {
       console.log("2222")
-      state.name = "daitu"
+      // state.name = "daitu"
     }, 2000)
   },
   {
