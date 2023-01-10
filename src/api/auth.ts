@@ -18,7 +18,7 @@ export function getVerifyCodeApi() {
   return request({
     url: `${PATH_PRE}/test/get_verify_code`,
     method: 'get',
-    responseType: 'arraybuffer',
+    // responseType: 'arraybuffer',
 
   })
 }

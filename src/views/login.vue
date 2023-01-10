@@ -72,7 +72,8 @@ const arrayBufferToBase64 = (buffer:any) =>{
 
 const getVerifyCodeFn = ()=>{
   getVerifyCodeApi().then((res:any) =>{
-    verifyCode.value = 'data:image/jpeg;base64,' + arrayBufferToBase64(res.data)
+    // verifyCode.value = 'data:image/jpeg;base64,' + arrayBufferToBase64(res.data)
+    verifyCode.value = res
   })
 }
 const verifyCodeFn = ()=>{
