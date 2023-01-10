@@ -13,3 +13,22 @@ export function loginApi(data:any) {
   })
 }
 
+
+export function getVerifyCodeApi() {
+  return request({
+    url: `${PATH_PRE}/test/get_verify_code`,
+    method: 'get',
+    responseType: 'arraybuffer',
+
+  })
+}
+
+export function verifyCodeApi(data:any) {
+  return request({
+    url: `${PATH_PRE}/test/verifyCode`,
+    method: 'post',
+    data
+  })
+}
+
+

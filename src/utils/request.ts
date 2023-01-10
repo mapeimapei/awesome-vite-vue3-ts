@@ -44,10 +44,6 @@ service.interceptors.request.use(config => {
   }
   return config
 
-
-
-
-
 }, error => {
   console.log(error)
   Promise.reject(error)
@@ -58,7 +54,7 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(
   res => {
     // 未设置状态码则默认成功状态
-    const code = res.data.code || 200;
+    const code = res.data.code || 20000;
     // 获取错误信息
     const msg = errorCode[code] || res.data.msg || errorCode['default']
     // 二进制数据则直接返回
@@ -76,7 +72,7 @@ service.interceptors.response.use(
       ElMessage.error(msg)
 
       return Promise.reject(new Error(msg))
-    } else if (code !== 200) {
+    } else if (code !== 20000) {
       ElMessage.error(msg)
       return Promise.reject('error')
     } else {

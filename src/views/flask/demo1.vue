@@ -17,7 +17,7 @@ import { blobDownloadApi } from "@/api/flask"
 
 const blobDownloadFn = ()=>{
   let params = {
-    "fileName": "强者是这样精进人生的_20230109103941_43.jpg"
+    "fileName": "123_20230109105538_48.xlsx"
   }
   blobDownloadApi(params).then(res =>{
     postDownload(res)
