@@ -13,14 +13,15 @@ export const useAuth = defineStore('auth', {
 	state: (): authStates => {
 		return {
 			user: null,
-			token: ""
+			access_token: "",
+			refresh_token: "",
 		  }
 	},
 	
 	persist: {
 		enabled: true,
 		// strategies: [
-		// 	{ storage: sessionStorage, paths: ['token'] }, // str 和 num
+		// 	{ storage: sessionStorage, paths: ['access_token','refresh_token'] }, // str 和 num
 		// 	{ storage: localStorage, paths: ['user'] }, // obj 字段用 localstorage存储
 		// ],
 	},
@@ -36,13 +37,24 @@ export const useAuth = defineStore('auth', {
 		},
 
 		setToken(str: string) {
-			this.token =  str
+			this.access_token =  str
 			// if(!!str){
-			// 	Session.set("token",str)
+			// 	Session.set("access_token",str)
 			// }else{
-			// 	Session.remove("token")
+			// 	Session.remove("access_token")
 			// }
 		},
+
+		setRefreshToken(str: string) {
+			this.refresh_token =  str
+			// if(!!str){
+			// 	Session.set("refresh_token",str)
+			// }else{
+			// 	Session.remove("refresh_token")
+			// }
+		},
+
+
 
 		// 登录接口
 		actionLogin(loginData:any) {
@@ -56,16 +68,17 @@ export const useAuth = defineStore('auth', {
 			})
 			return new Promise((resolve,reject) => {
 				loginApi(loginData).then((res:any)=>{
-					const { resultCode,result} = res
-					if(resultCode === "20000"){
-						this.setUser(result)
-						this.setToken(result.token)
+					const { code,data} = res
+					if(code === 20000){
+						this.setUser(data)
+						this.setToken(data.access_token)
+						this.setRefreshToken(data.refresh_token)
 
 
-						// this.user= result
-						// this.token= result.token
-						// Session.set("user",result)
-						// Session.set("token",result.token)
+						// this.user= data
+						// this.access_token= data.access_token
+						// Session.set("user",data)
+						// Session.set("access_token",data.access_token)
 						// ElMessage({
 						// 	message: '登录成功',
 						// 	type: 'success',

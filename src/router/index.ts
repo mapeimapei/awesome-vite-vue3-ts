@@ -19,7 +19,7 @@ router.beforeEach(async (to, from, next) => {
   //console.log("router.to",to)
   const storesAuth = useAuth(pinia);
   if (to.matched.some(r => r.meta.requireAuth)) {
-    if (!!storesAuth.token) {
+    if (!!storesAuth.access_token) {
        next()
     }else {
       next({

@@ -109,7 +109,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
 
 
 const storesAuth = useAuth();
-const { user,token } = storeToRefs(storesAuth);
+const { user,access_token } = storeToRefs(storesAuth);
 const route = useRoute();
 const router = useRouter();
 const { proxy } =getCurrentInstance() as any;

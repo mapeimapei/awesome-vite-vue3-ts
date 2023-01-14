@@ -9,7 +9,7 @@ import { useAuth} from '@/stores';
 
 const getToken = ()=>{
   const storesAuth = useAuth(pinia);
-  let authorization = "basic " + Base64.encode("token:"+storesAuth.token)
+  let authorization = storesAuth.access_token
   return authorization
 }
 

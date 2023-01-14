@@ -6,9 +6,9 @@
 // 登陆信息
 export interface authStates {
     user: any,
-    token: string
+    access_token: string,
+    refresh_token: string,
 }
-
 
 
 
