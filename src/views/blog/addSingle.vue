@@ -104,9 +104,11 @@ const addSingleFn = () => {
 		lock: true,
 		background: 'rgba(0, 0, 0, 0.5)'
 	});
-	addSingle(addArticle.value).then((data: any) => {
+	addSingle(addArticle.value).then((res: any) => {
 		loadingMask.close();
-		if (!!data && data.resultCode === "20000") {
+
+    	const { code,data} = res
+    	if (code === 20000) {
 			proxy.$notify({
 				message: '成功。',
 				type: 'success'
@@ -137,11 +139,14 @@ const getSingle = () => {
 		lock: true,
 		background: 'rgba(0, 0, 0, 0.5)'
 	});
-	getSingleById(postId.value).then((data: any) => {
-		if (!!data && data.resultCode === "20000") {
-			addArticle.value.name = data.result.name
-			addArticle.value.summary = data.result.summary
-			addArticle.value.content = data.result.content
+	getSingleById(postId.value).then((res: any) => {
+
+
+    	const { code,data} = res
+    	if (code === 20000) {
+			addArticle.value.name = data.name
+			addArticle.value.summary = data.summary
+			addArticle.value.content = data.content
 		} else {
 			proxy.$notify({
 				message: '获取文章列表失败。',

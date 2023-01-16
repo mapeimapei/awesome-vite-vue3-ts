@@ -82,8 +82,9 @@ const deletData = (id: string) => {
     "id": id,
     "user_id": user.value.id
   }
-  deleteSingle(obj).then((data: any) => {
-    if (!!data && data.resultCode === "20000") {
+  deleteSingle(obj).then((res: any) => {
+    const { code,data} = res
+    if (code === 20000) {
       getPosts()
     } else {
       proxy.$notify({
@@ -112,9 +113,10 @@ const getPosts = () => {
     lock: true,
     background: 'rgba(0, 0, 0, 0.5)'
   });
-  getPostsApi().then((data: any) => {
-    if (!!data && data.resultCode === "20000") {
-      articleList.value = data.result
+  getPostsApi().then((res: any) => {
+    const { code,data} = res
+    if (code === 20000) {
+      articleList.value = data
     } else {
       proxy.$notify({
         message: '获取文章列表失败。',
