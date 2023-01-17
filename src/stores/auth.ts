@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia';
-import {authStates } from './interface';
+import { authStates } from './interface';
 import { Session } from '@/utils/storage';
-import {loginApi,refreshTokenApi} from "@/api/auth"
+import { loginApi, refreshTokenApi, logoutApi } from "@/api/auth"
+import router from '@/router'
 
-
-import { ElLoading,ElMessage  } from 'element-plus'
+import { ElLoading, ElMessage } from 'element-plus'
 
 /**
  * 用户信息
@@ -15,9 +15,9 @@ export const useAuth = defineStore('auth', {
 			user: null,
 			access_token: "",
 			refresh_token: "",
-		  }
+		}
 	},
-	
+
 	persist: { //持久化存储
 		enabled: true,
 		// strategies: [
@@ -28,7 +28,7 @@ export const useAuth = defineStore('auth', {
 
 	actions: {
 		setUser(obj: any) {
-			this.user =  obj
+			this.user = obj
 			// if(!!obj){
 			// 	Session.set("user",obj)
 			// }else{
@@ -37,7 +37,7 @@ export const useAuth = defineStore('auth', {
 		},
 
 		setToken(str: string) {
-			this.access_token =  str
+			this.access_token = str
 			// if(!!str){
 			// 	Session.set("access_token",str)
 			// }else{
@@ -46,7 +46,7 @@ export const useAuth = defineStore('auth', {
 		},
 
 		setRefreshToken(str: string) {
-			this.refresh_token =  str
+			this.refresh_token = str
 			// if(!!str){
 			// 	Session.set("refresh_token",str)
 			// }else{
@@ -54,27 +54,58 @@ export const useAuth = defineStore('auth', {
 			// }
 		},
 
+		// 注销接口
+		actionLogout() {
+			const loading = ElLoading.service({
+				lock: true,
+				text: 'Loading',
+				background: 'rgba(0, 0, 0, 0.7)',
+			})
+			return new Promise((resolve, reject) => {
+				let params = { "refresh_token": this.refresh_token }
+				logoutApi(params).then((res: any) => {
+					const { code, data } = res
+					if (code === 20000) {
+						this.setUser("")
+						this.setToken("")
+						this.setRefreshToken("")
+						ElMessage({
+							message: '注销成功',
+							type: 'success',
+						})
+						resolve(res)
+					} else {
+						reject(res)
+					}
+				}).catch((err) => {
+					console.log(err)
+					reject(err)
+				}).finally(() => {
+					loading.close()
+				})
+			});
+		},
 
 		// 刷新token
 		actionRefreshToken() {
-			return new Promise((resolve,reject) => {
-				let params = {"access_token":this.refresh_token}
-				let headers = { 'Authorization':this.refresh_token}
-				refreshTokenApi(params,headers).then((res:any)=>{
-					const { code,data} = res
-					if(code === 20000){
-						let _user = {...this.user}
+			return new Promise((resolve, reject) => {
+				let params = { "access_token": this.refresh_token }
+				let headers = { 'Authorization': this.refresh_token }
+				refreshTokenApi(params, headers).then((res: any) => {
+					const { code, data } = res
+					if (code === 20000) {
+						let _user = { ...this.user }
 						_user.access_token = data
 						this.setUser(_user)
 						this.setToken(data)
 						resolve(res)
-					}else{
+					} else {
 						reject(res)
 					}
-				}).catch((err)=>{
+				}).catch((err) => {
 					console.log(err)
 					reject(err)
-				}).finally(()=>{
+				}).finally(() => {
 
 				})
 			});
@@ -82,16 +113,16 @@ export const useAuth = defineStore('auth', {
 
 
 		// 登录接口
-		actionLogin(loginData:any) {
+		actionLogin(loginData: any) {
 			const loading = ElLoading.service({
 				lock: true,
 				text: 'Loading',
 				background: 'rgba(0, 0, 0, 0.7)',
 			})
-			return new Promise((resolve,reject) => {
-				loginApi(loginData).then((res:any)=>{
-					const { code,data} = res
-					if(code === 20000){
+			return new Promise((resolve, reject) => {
+				loginApi(loginData).then((res: any) => {
+					const { code, data } = res
+					if (code === 20000) {
 						this.setUser(data)
 						this.setToken(data.access_token)
 						this.setRefreshToken(data.refresh_token)
@@ -104,13 +135,13 @@ export const useAuth = defineStore('auth', {
 						// 	type: 'success',
 						// })
 						resolve(res)
-					}else{
+					} else {
 						reject(res)
 					}
-				}).catch((err)=>{
+				}).catch((err) => {
 					console.log(err)
 					reject(err)
-				}).finally(()=>{
+				}).finally(() => {
 					loading.close()
 				})
 			});

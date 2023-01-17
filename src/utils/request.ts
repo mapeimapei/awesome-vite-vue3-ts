@@ -72,8 +72,6 @@ service.interceptors.response.use(
     // TokenRevoked = 40012  # 令牌已经被撤销
     if (code === 40010 || code === 40012) {
       //无效的令牌 || 令牌已经被撤销
-      // 跳登录
-      console.log("无效的令牌 || 令牌已经被撤销")
       // 跳登录 
       router.replace({
         path: '/login',
@@ -106,8 +104,8 @@ service.interceptors.response.use(
         })
       }
     } else if (code !== 20000) {
-      ElMessage.error(msg)
-      return Promise.reject('error')
+      // ElMessage.error(msg)
+      return Promise.reject(msg)
     } else {
       return res.data
     }

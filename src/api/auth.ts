@@ -2,6 +2,7 @@ import request from '@/utils/request'
 
 const PATH_PRE = '/api/user'
 
+// 登录
 export function loginApi(data: any) {
   return request({
     url: `${PATH_PRE}/login`,
@@ -13,7 +14,7 @@ export function loginApi(data: any) {
   })
 }
 
-
+// 刷新token
 export function refreshTokenApi(data: any, headers: any) {
   return request({
     url: `${PATH_PRE}/refresh_token`,
@@ -23,9 +24,7 @@ export function refreshTokenApi(data: any, headers: any) {
   })
 }
 
-
-
-
+// 获取验证码
 export function getVerifyCodeApi() {
   return request({
     url: `${PATH_PRE}/get_verify_code`,
@@ -33,6 +32,7 @@ export function getVerifyCodeApi() {
   })
 }
 
+// 验证验证码 （调试使用）
 export function verifyCodeApi(data: any) {
   return request({
     url: `${PATH_PRE}/verifyCode`,
@@ -41,4 +41,12 @@ export function verifyCodeApi(data: any) {
   })
 }
 
+// 登录
+export function logoutApi(data: any) {
+  return request({
+    url: `${PATH_PRE}/logout`,
+    method: 'post',
+    data,
+  })
+}
 

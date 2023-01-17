@@ -28,13 +28,12 @@
 </template>
 
 <script lang="ts" setup>
-import { getCurrentInstance,nextTick } from 'vue'
+import { getCurrentInstance, nextTick } from 'vue'
 import { storeToRefs } from 'pinia';
-import { useAuth} from '@/stores';
+import { useAuth } from '@/stores';
 
 const storesAuth = useAuth();
 const { user } = storeToRefs(storesAuth);
-
 const { proxy } = getCurrentInstance() as any;
 
 //登出
@@ -44,20 +43,16 @@ const logout = () => {
 		cancelButtonText: '取消',
 		type: 'warning'
 	}).then(() => {
-		storesAuth.setUser(null)
-		storesAuth.setToken("")
-		nextTick(()=>{
-			proxy.$router.push("/login")
+		storesAuth.actionLogout().then(() => {
+			// 跳登录页面
+			proxy.$router.replace("/login")
 		})
-		
-	}).catch(() => {
-
-	});
+	})
 }
-
 
 
 </script>
 
 <style scoped lang="scss">
+
 </style>
