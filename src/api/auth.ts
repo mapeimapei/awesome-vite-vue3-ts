@@ -1,10 +1,10 @@
 import request from '@/utils/request'
 
-const PATH_PRE = '/api'
+const PATH_PRE = '/api/user'
 
-export function loginApi(data:any) {
+export function loginApi(data: any) {
   return request({
-    url: `${PATH_PRE}/user/login`,
+    url: `${PATH_PRE}/login`,
     method: 'post',
     headers: {
       isToken: false
@@ -14,18 +14,28 @@ export function loginApi(data:any) {
 }
 
 
-export function getVerifyCodeApi() {
+export function refreshTokenApi(data: any, headers: any) {
   return request({
-    url: `${PATH_PRE}/test/get_verify_code`,
-    method: 'get',
-    // responseType: 'arraybuffer',
-
+    url: `${PATH_PRE}/refresh_token`,
+    method: 'post',
+    data,
+    headers,
   })
 }
 
-export function verifyCodeApi(data:any) {
+
+
+
+export function getVerifyCodeApi() {
   return request({
-    url: `${PATH_PRE}/test/verifyCode`,
+    url: `${PATH_PRE}/get_verify_code`,
+    method: 'get',
+  })
+}
+
+export function verifyCodeApi(data: any) {
+  return request({
+    url: `${PATH_PRE}/verifyCode`,
     method: 'post',
     data
   })

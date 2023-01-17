@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import {authStates } from './interface';
 import { Session } from '@/utils/storage';
-import {loginApi} from "@/api/auth"
+import {loginApi,refreshTokenApi} from "@/api/auth"
 
 
 import { ElLoading,ElMessage  } from 'element-plus'
@@ -18,7 +18,7 @@ export const useAuth = defineStore('auth', {
 		  }
 	},
 	
-	persist: {
+	persist: { //持久化存储
 		enabled: true,
 		// strategies: [
 		// 	{ storage: sessionStorage, paths: ['access_token','refresh_token'] }, // str 和 num
@@ -55,12 +55,34 @@ export const useAuth = defineStore('auth', {
 		},
 
 
+		// 刷新token
+		actionRefreshToken() {
+			return new Promise((resolve,reject) => {
+				let params = {"access_token":this.refresh_token}
+				let headers = { 'Authorization':this.refresh_token}
+				refreshTokenApi(params,headers).then((res:any)=>{
+					const { code,data} = res
+					if(code === 20000){
+						let _user = {...this.user}
+						_user.access_token = data
+						this.setUser(_user)
+						this.setToken(data)
+						resolve(res)
+					}else{
+						reject(res)
+					}
+				}).catch((err)=>{
+					console.log(err)
+					reject(err)
+				}).finally(()=>{
+
+				})
+			});
+		},
+
 
 		// 登录接口
 		actionLogin(loginData:any) {
-
-			console.log("loginData",loginData)
-
 			const loading = ElLoading.service({
 				lock: true,
 				text: 'Loading',
@@ -73,8 +95,6 @@ export const useAuth = defineStore('auth', {
 						this.setUser(data)
 						this.setToken(data.access_token)
 						this.setRefreshToken(data.refresh_token)
-
-
 						// this.user= data
 						// this.access_token= data.access_token
 						// Session.set("user",data)
