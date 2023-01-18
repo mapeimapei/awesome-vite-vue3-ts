@@ -77,6 +77,7 @@ service.interceptors.response.use(
         path: '/login',
         query: { redirect: router.currentRoute.value.fullPath }
       })
+      return ""
     } else if (code === 40011) {
       const config = res.config
       if (!isRefreshing) {

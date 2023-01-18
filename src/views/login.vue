@@ -33,17 +33,12 @@
 <script lang="ts" setup>
 import { reactive, ref, getCurrentInstance, onMounted } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
-
 import { getVerifyCodeApi, verifyCodeApi } from "@/api/auth"
-
-import { useRoute, useRouter } from 'vue-router';
-
-import { storeToRefs } from 'pinia';
-import { useAuth } from '@/stores';
+import { useRoute, useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia'
+import { useAuth } from '@/stores'
 
 const verifyCode = ref<any>("")
-
-
 
 const loginFormRef = ref<FormInstance>()
 const loginData = reactive({

@@ -41,7 +41,7 @@ export function verifyCodeApi(data: any) {
   })
 }
 
-// 登录
+// 注销
 export function logoutApi(data: any) {
   return request({
     url: `${PATH_PRE}/logout`,
