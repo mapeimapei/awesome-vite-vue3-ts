@@ -34,7 +34,7 @@ export default defineConfig((mode: ConfigEnv) => {
 		root: process.cwd(),
 		resolve: { alias },
 		//项目部署的基础路径
-		base: mode.command === 'serve' ? '/' : env.VITE_PUBLIC_PATH,
+		base: env.VITE_PUBLIC_PATH,
 		// 热更
 		hmr: true, 
 		// 强制预构建插件包

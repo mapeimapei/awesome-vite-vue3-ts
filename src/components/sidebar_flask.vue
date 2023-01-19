@@ -10,7 +10,7 @@
     </li>
   </ul>
 </template>
-<script setup>
+<script lang="ts" setup>
 
 
 

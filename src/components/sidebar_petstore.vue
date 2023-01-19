@@ -6,7 +6,7 @@
     </li>
   </ul>
 </template>
-<script setup>
+<script lang="ts" setup>
 
 const cls = false
 

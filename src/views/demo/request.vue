@@ -2,7 +2,7 @@
 
   <div class="p20">
     <div>user ==> {{ user }}</div>
-    <div>token ==> {{ token }}</div>
+    <div>token ==> {{ access_token }}</div>
     <el-button @click="loginFn" type="primary">loginFn</el-button>
     <el-button @click="getPostsFn" type="primary">getPostsFn</el-button>
 
@@ -23,7 +23,7 @@ import { getPostsApi } from "@/api/cms"
 import { storeToRefs } from 'pinia';
 import { useAuth } from '@/stores';
 const storesAuth = useAuth();
-const { user, token } = storeToRefs(storesAuth);
+const { user, access_token } = storeToRefs(storesAuth);
 
 
 

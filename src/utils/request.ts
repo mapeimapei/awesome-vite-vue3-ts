@@ -96,7 +96,7 @@ service.interceptors.response.use(
       } else {
         // 正在刷新token，将返回一个未执行resolve的promise
         // 保存函数 等待执行
-        // 吧请求都保存起来 等刷新完成后再一个一个调用
+        // 把请求都保存起来 等刷新完成后再一个一个调用
         return new Promise((resolve) => {
           // 将resolve放进队列，用一个函数形式来保存，等token刷新后直接执行
           requestsArr.push(() => {
