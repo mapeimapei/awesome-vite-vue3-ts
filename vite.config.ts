@@ -13,7 +13,7 @@ const pathResolve = (dir: string): any => {
 
 const alias: Record<string, string> = {
 	'@': pathResolve("src"),
-	"comps": pathResolve("src/components"),
+	"comps": resolve("src/components"),
 	'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
 	"api": resolve('src/api'),
 	"views": resolve('src/views'),

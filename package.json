@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-	"build": "vite build",
+    "build": "vite build",
     "build:prod": "vue-tsc --noEmit && vite build --mode production",
     "preview": "vite preview"
   },

@@ -2,7 +2,6 @@ import axios from 'axios'
 import errorCode from '@/utils/errorCode'
 import { obj2Param } from "@/utils/bomTools.js";
 import { ElMessage, ElMessageBox } from 'element-plus';
-import Base64 from '@/utils/Base64.js';
 import router from '@/router'
 
 import pinia from '@/stores';
@@ -17,7 +16,7 @@ const getToken = () => {
 // 配置新建一个 axios 实例
 const service = axios.create({
   baseURL: import.meta.env.VITE_API_URL as any,
-  timeout: 600000,
+  timeout: 1000 * 60 * 15,
   headers: {
     'XRequested-With': 'XMLHttpRequest',
     'Content-Type': 'application/json;charset=UTF-8',

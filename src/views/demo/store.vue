@@ -1,5 +1,9 @@
 <template>
   <div class="p20">
+
+    
+    <div>str2 ==> {{ str2 }}</div>
+
     <div>str ==> {{ str }}</div>
     <div>num ==> {{ num }}</div>
     <div>arr ==> {{ arr }}</div>
@@ -36,22 +40,40 @@
 <script lang="ts" setup>
 import { getCurrentInstance, onMounted,ref } from 'vue';
 import { storeToRefs } from 'pinia';
-import { useDemo } from '@/stores';
+import { useDemo,useDemo2 } from '@/stores';
+
+import {store} from '@/stores';
+
+
+
 import { DemoStates } from '@/stores/interface/index';
 
 
 const { proxy } = getCurrentInstance() as any;
 
 //教程 https://blog.csdn.net/m0_63470734/article/details/126997877
-const storesDemo = useDemo();
+const storesDemo = store.useDemo();
 // 如果在接收pinia数据时，进行解构则不再是响应式数据，需要使用toRefs
 // 如果使用 storesDemo.xxx 则不用toRefs
 const { str, num, arr, isOk, obj } = storeToRefs(storesDemo);
 
+
+const storesDemo2 = useDemo2();
+// 如果在接收pinia数据时，进行解构则不再是响应式数据，需要使用toRefs
+// 如果使用 storesDemo.xxx 则不用toRefs
+const { str2 } = storeToRefs(storesDemo2);
+
+
+
+
+
+
+
+
 const isShow = ref(false)
 
 // https://blog.csdn.net/qq_42543244/article/details/123461832
-const subscribe = storesDemo.$subscribe((mutation, state) => {
+const subscribe = storesDemo.$subscribe((mutation: any, state: { str: string; }) => {
       /*
       * mutation主要包含三个属性值：
       *   events：当前state改变的具体数据，包括改变前的值和改变后的值等等数据
