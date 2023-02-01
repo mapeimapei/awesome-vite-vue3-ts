@@ -4,11 +4,10 @@ import { obj2Param } from "@/utils/bomTools.js";
 import { ElMessage, ElMessageBox } from 'element-plus';
 import router from '@/router'
 
-import pinia from '@/stores';
-import { useAuth } from '@/stores';
+import pinia,{ stores } from '@/stores';
 
 const getToken = () => {
-  const storesAuth = useAuth(pinia);
+  const storesAuth = stores.useAuth(pinia);
   let authorization = storesAuth.access_token
   return authorization
 }
@@ -81,7 +80,7 @@ service.interceptors.response.use(
       const config = res.config
       if (!isRefreshing) {
         isRefreshing = true
-        const storesAuth = useAuth(pinia);
+        const storesAuth = stores.useAuth(pinia);
         return storesAuth.actionRefreshToken().then((res: any) => {
           let token = res.data
           if (config && config?.headers) {
@@ -89,7 +88,7 @@ service.interceptors.response.use(
           }
           isRefreshing = false
           return service(config)
-        }).catch(res => {
+        }).catch((res:any) => {
           console.error('refreshtoken error =>', res)
         })
       } else {
