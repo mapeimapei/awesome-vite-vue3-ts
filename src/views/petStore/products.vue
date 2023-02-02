@@ -63,10 +63,10 @@
 <script lang="ts" setup>
 import { getProductsApi,addOrderApi,addCartApi } from "@/api/shop"
 import { getCurrentInstance, ref, onMounted, computed } from 'vue'
-import { useAuth } from "@/stores/auth"
+import { stores } from "@/stores"
 
 const { proxy } = getCurrentInstance() as any;
-const storesAuth = useAuth()
+const storesAuth = stores.useAuth()
 const { user } = proxy.storeToRefs(storesAuth)
 
 

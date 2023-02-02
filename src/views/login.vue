@@ -36,7 +36,7 @@ import type { FormInstance, FormRules } from 'element-plus'
 import { getVerifyCodeApi, verifyCodeApi } from "@/api/auth"
 import { useRoute, useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import { useAuth } from '@/stores'
+import { stores } from '@/stores'
 
 const verifyCode = ref<any>("")
 
@@ -104,7 +104,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
 }
 
 
-const storesAuth = useAuth();
+const storesAuth = stores.useAuth();
 const { user, access_token } = storeToRefs(storesAuth);
 const route = useRoute();
 const router = useRouter();
@@ -116,7 +116,7 @@ async function loginFn() {
     router.push({
       path: redirect as any
     })
-  }).catch(err => {
+  }).catch((err:any) => {
     proxy.$message.error("登录失败：" + JSON.stringify(err))
   })
 }

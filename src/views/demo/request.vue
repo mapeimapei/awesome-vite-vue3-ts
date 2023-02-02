@@ -21,8 +21,8 @@ import { loginApi } from "@/api/auth"
 import { getPostsApi } from "@/api/cms"
 
 import { storeToRefs } from 'pinia';
-import { useAuth } from '@/stores';
-const storesAuth = useAuth();
+import { stores } from '@/stores';
+const storesAuth = stores.useAuth();
 const { user, access_token } = storeToRefs(storesAuth);
 
 
@@ -40,7 +40,7 @@ const state = reactive({
 const loginFn = () => {
   storesAuth.actionLogin(state.loginData).then((res: any) => {
     console.log(res.result)
-  }).catch((err) => {
+  }).catch((err:any) => {
     console.log(err)
   })
 }

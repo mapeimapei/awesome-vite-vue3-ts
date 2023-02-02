@@ -36,9 +36,9 @@ import { getPostsApi, deleteSingle } from "@/api/cms"
 
 import { getCurrentInstance, ref, onMounted, computed } from 'vue'
 import { storeToRefs } from "pinia";
-import { useAuth} from '@/stores';
+import { stores} from '@/stores';
 
-const storesAuth = useAuth()
+const storesAuth = stores.useAuth()
 const { user } = storeToRefs(storesAuth)
 
 const { proxy } = getCurrentInstance() as any;

@@ -43,11 +43,11 @@
 <script lang="ts" setup>
 import { Ref, ref, toRefs, reactive, onMounted, nextTick, computed, watch } from 'vue';
 import { storeToRefs } from 'pinia';
-import { useDemo } from '@/stores';
+import { stores } from '@/stores';
 
 import svgIcon from './svgIcon.vue';
 
-const storesDemo = useDemo();
+const storesDemo = stores.useDemo();
 const { str, arr, isOk, obj } = storeToRefs(storesDemo);
 
 const nameRef: Ref = ref("nihao")

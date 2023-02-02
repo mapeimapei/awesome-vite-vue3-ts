@@ -68,9 +68,9 @@ import { getCartListApi, deleteCartApi, addOrderApi } from "@/api/shop"
 import { uuid } from "@/utils/common.js"
 
 import { getCurrentInstance, ref, reactive, onMounted, nextTick, computed } from 'vue'
-import { useAuth } from '@/stores'
+import { stores } from '@/stores'
 const { proxy } = getCurrentInstance() as any
-const storesAuth = useAuth()
+const storesAuth = stores.useAuth()
 const { user } = proxy.storeToRefs(storesAuth)
 
 

@@ -9,7 +9,7 @@ import { ElLoading, ElMessage } from 'element-plus'
 /**
  * 用户信息
  */
-export default defineStore('auth', {
+export const useAuth = defineStore('auth', {
 	state: (): authStates => {
 		return {
 			user: null,
